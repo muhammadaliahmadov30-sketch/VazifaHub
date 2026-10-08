@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VazifaHub — Uy Vazifalari Platformasi</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f5ff',
+              100: '#e0ebff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              accent: '#06b6d4',
+              bg: '#070b16',
+              card: '#10182b',
+              border: '#26324a'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #070b16;
+      color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      transition: background 0.3s ease;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .glass-card {
+      background: rgba(16, 24, 43, 0.9);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(38, 50, 74, 0.6);
+    }
+    .glass-nav {
+      background: rgba(7, 11, 22, 0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(38, 50, 74, 0.8);
+    }
+    .glass-input {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid #26324a;
+      transition: all 0.2s ease-in-out;
+    }
+    .glass-input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+      outline: none;
+    }
+    
+    /* Rainbow Animated Border Effect */
+    @keyframes borderRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    .rainbow-border {
+      position: relative;
+      border-radius: 1rem;
+      padding: 2px;
+      background: linear-gradient(135deg,#6366f1,#06b6d4,#ec4899,#8b5cf6);
+      background-size: 250% 250%;
+      animation: borderFlow 7s linear infinite;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .rainbow-inner {
+      background: #10182b;
+      border-radius: .88rem;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    /* Site frame: always visible, never changes on hover. */
+    .site-frame-1 .rainbow-border{background:linear-gradient(135deg,#22d3ee,#6366f1,#ec4899)}
+    .site-frame-2 .rainbow-border{background:linear-gradient(135deg,#ec4899,#f9a8d4,#a855f7)}
+    .site-frame-3 .rainbow-border{background:linear-gradient(135deg,#14b8a6,#06b6d4,#60a5fa)}
+    .site-frame-4 .rainbow-border{background:linear-gradient(135deg,#f59e0b,#ef4444,#facc15)}
+    .site-frame-5 .rainbow-border{background:conic-gradient(#6366f1,#ec4899,#f59e0b,#22c55e,#06b6d4,#6366f1)}
+    .site-frame-6 .rainbow-border{background:linear-gradient(135deg,#f8fafc,#94a3b8,#64748b)}
+    .site-frame-7 .rainbow-border{background:linear-gradient(135deg,#38bdf8,#2563eb,#1e40af,#22d3ee)}
+    .site-frame-8 .rainbow-border{background:linear-gradient(135deg,#c084fc,#8b5cf6,#6d28d9,#ec4899)}
+    .site-frame-9 .rainbow-border{background:linear-gradient(135deg,#a3e635,#22c55e,#84cc16,#bef264)}
+    .site-frame-10 .rainbow-border{background:linear-gradient(135deg,#f43f5e,#fb7185,#f97316,#facc15)}
+    .site-frame-1 .neon-header,.site-frame-1 .neon-sidebar{border-color:rgba(34,211,238,.45)!important}
+    .site-frame-2 .neon-header,.site-frame-2 .neon-sidebar{border-color:rgba(236,72,153,.45)!important}
+    .site-frame-3 .neon-header,.site-frame-3 .neon-sidebar{border-color:rgba(20,184,166,.45)!important}
+    .site-frame-4 .neon-header,.site-frame-4 .neon-sidebar{border-color:rgba(245,158,11,.45)!important}
+    .site-frame-5 .neon-header,.site-frame-5 .neon-sidebar{border-color:rgba(168,85,247,.5)!important}
+    .site-frame-6 .neon-header,.site-frame-6 .neon-sidebar{border-color:rgba(226,232,240,.35)!important}
+    .site-frame-7 .neon-header,.site-frame-7 .neon-sidebar{border-color:rgba(56,189,248,.45)!important}
+    .site-frame-8 .neon-header,.site-frame-8 .neon-sidebar{border-color:rgba(192,132,252,.45)!important}
+    .site-frame-9 .neon-header,.site-frame-9 .neon-sidebar{border-color:rgba(163,230,53,.4)!important}
+    .site-frame-10 .neon-header,.site-frame-10 .neon-sidebar{border-color:rgba(244,63,94,.45)!important}
+    .rainbow-border:hover{filter:none!important;transform:none!important;}
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070b16; }
+    ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 4px; }
+    .fade-in { animation: fadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #toast-container {
+      position: fixed; top: 1rem; right: 1rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    /* ===== Premium UI / Profile effects ===== */
+    @keyframes auroraMove {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes spinSlow { to { transform: rotate(360deg); } }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 rgba(99,102,241,0); }
+      50% { box-shadow: 0 0 28px rgba(99,102,241,.22); }
+    }
+    .app-fullscreen { min-height: 100vh; width: 100%; }
+    .site-shell { min-height: 100vh; width: 100%; }
+    .site-content { min-width: 0; flex: 1 1 auto; }
+    .profile-button.site-profile {
+      min-width: 220px;
+      border: 1px solid rgba(99,102,241,.35);
+      box-shadow: 0 0 0 1px rgba(6,182,212,.08), 0 10px 35px rgba(0,0,0,.22);
+    }
+    .profile-button.site-profile:hover {
+      border-color: rgba(34,211,238,.7);
+      box-shadow: 0 0 22px rgba(34,211,238,.18), 0 10px 35px rgba(0,0,0,.28);
+    }
+    .profile-button.site-profile .profile-edit-hint {
+      opacity: .65;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .profile-button.site-profile:hover .profile-edit-hint { opacity: 1; transform: translateX(2px); }
+    .profile-modal-wide { width: min(1180px, 96vw); max-height: 92vh; overflow-y: auto; }
+    .profile-hero {
+      background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(30,41,59,.9));
+      border: 1px solid rgba(148,163,184,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 20px 70px rgba(0,0,0,.3);
+    }
+    .frame-preview { min-height: 88px; }
+    .frame-preview .frame-icon {
+      width: 46px; height: 46px; border-radius: 14px; display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(145deg,#0f172a,#1e293b); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .frame-preview.selected .frame-icon { box-shadow: 0 0 0 2px rgba(255,255,255,.85), 0 0 25px rgba(99,102,241,.45); }
+    .avatar-frame.frame-1::before { background: conic-gradient(from 0deg,#6366f1,#06b6d4,#8b5cf6,#6366f1); animation-duration: 3.5s; }
+    .avatar-frame.frame-2::before { background: conic-gradient(from 0deg,#22d3ee,#34d399,#a7f3d0,#22d3ee); animation-duration: 4s; }
+    .avatar-frame.frame-3::before { background: conic-gradient(from 0deg,#38bdf8,#0ea5e9,#1d4ed8,#38bdf8); animation-duration: 4.5s; }
+    .avatar-frame.frame-4::before { background: conic-gradient(from 0deg,#fb7185,#f97316,#facc15,#fb7185); animation-duration: 3.2s; }
+    .avatar-frame.frame-5::before { background: conic-gradient(from 0deg,#ef4444,#f59e0b,#22c55e,#06b6d4,#8b5cf6,#ec4899,#ef4444); animation-duration: 2.8s; }
+    .avatar-frame.frame-6::before { background: conic-gradient(from 0deg,#f8fafc,#94a3b8,#e2e8f0,#64748b,#f8fafc); animation-duration: 5s; }
+    .avatar-frame.frame-7::before { background: conic-gradient(from 0deg,#60a5fa,#2563eb,#1e40af,#22d3ee,#60a5fa); animation-duration: 3.8s; }
+    .avatar-frame.frame-8::before { background: conic-gradient(from 0deg,#c084fc,#8b5cf6,#6d28d9,#ec4899,#c084fc); animation-duration: 3.6s; }
+    .avatar-frame.frame-9::before { background: conic-gradient(from 0deg,#a3e635,#22c55e,#84cc16,#bef264,#a3e635); animation-duration: 4.2s; }
+    .avatar-frame.frame-10::before { background: conic-gradient(from 0deg,#f43f5e,#fb7185,#f97316,#facc15,#f43f5e); animation-duration: 2.6s; }
+
+    /* 10 floral/decorative frame variants */
+    .avatar-frame.frame-1::before{background:radial-gradient(circle at 50% 0,#67e8f9 0 14%,transparent 15%),conic-gradient(#06b6d4,#6366f1,#ec4899,#06b6d4)}
+    .avatar-frame.frame-2::before{background:radial-gradient(circle at 0 50%,#f9a8d4 0 13%,transparent 14%),conic-gradient(#ec4899,#a855f7,#f9a8d4,#ec4899)}
+    .avatar-frame.frame-3::before{background:radial-gradient(circle at 100% 50%,#5eead4 0 13%,transparent 14%),conic-gradient(#14b8a6,#06b6d4,#60a5fa,#14b8a6)}
+    .avatar-frame.frame-4::before{background:radial-gradient(circle at 50% 100%,#fde68a 0 13%,transparent 14%),conic-gradient(#f59e0b,#ef4444,#facc15,#f59e0b)}
+    .avatar-frame.frame-5::before{background:radial-gradient(circle at 50% 0,#f0abfc 0 12%,transparent 13%),radial-gradient(circle at 100% 50%,#86efac 0 12%,transparent 13%),conic-gradient(#6366f1,#ec4899,#f59e0b,#22c55e,#06b6d4,#6366f1)}
+    .avatar-frame.frame-6::before{background:radial-gradient(circle at 0 50%,#fff 0 12%,transparent 13%),conic-gradient(#e2e8f0,#94a3b8,#f8fafc,#64748b,#e2e8f0)}
+    .avatar-frame.frame-7::before{background:radial-gradient(circle at 50% 0,#93c5fd 0 13%,transparent 14%),conic-gradient(#38bdf8,#2563eb,#1e40af,#22d3ee,#38bdf8)}
+    .avatar-frame.frame-8::before{background:radial-gradient(circle at 100% 50%,#d8b4fe 0 13%,transparent 14%),conic-gradient(#c084fc,#8b5cf6,#6d28d9,#ec4899,#c084fc)}
+    .avatar-frame.frame-9::before{background:radial-gradient(circle at 50% 100%,#bef264 0 13%,transparent 14%),conic-gradient(#a3e635,#22c55e,#84cc16,#bef264,#a3e635)}
+    .avatar-frame.frame-10::before{background:radial-gradient(circle at 0 50%,#fda4af 0 13%,transparent 14%),conic-gradient(#f43f5e,#fb7185,#f97316,#facc15,#f43f5e)}
+
+    .avatar-frame.frame-5, .avatar-frame.frame-10 { filter: drop-shadow(0 0 10px rgba(236,72,153,.22)); }
+    .premium-bg {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(99,102,241,.14), transparent 28%),
+        radial-gradient(circle at 85% 75%, rgba(6,182,212,.12), transparent 28%);
+    }
+    .premium-card {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+    }
+    .premium-card::before {
+      content: "";
+      position: absolute; inset: -2px;
+      background: linear-gradient(120deg,#6366f1,#06b6d4,#ec4899,#8b5cf6,#10b981,#6366f1);
+      background-size: 400% 400%;
+      animation: auroraMove 7s ease infinite;
+      opacity: .12;
+      pointer-events: none;
+    }
+    .profile-button {
+      position: relative;
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .profile-button:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .avatar-frame {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+    .avatar-frame::before {
+      content: "";
+      position: absolute; inset: -5px;
+      border-radius: inherit;
+      background: conic-gradient(from 0deg,#6366f1,#06b6d4,#22c55e,#f59e0b,#ec4899,#8b5cf6,#6366f1);
+      animation: spinSlow 5s linear infinite;
+      z-index: -2;
+    }
+    .avatar-frame::after {
+      content: "";
+      position: absolute; inset: -1px;
+      border-radius: inherit;
+      background: #0b1120;
+      z-index: -1;
+    }
+    .profile-avatar {
+      width: 100%; height: 100%; object-fit: cover; border-radius: inherit;
+      display: block; background: linear-gradient(135deg,#1e293b,#0f172a);
+    }
+    .frame-preview {
+      position: relative; padding: 5px; border-radius: 18px; cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      background: linear-gradient(135deg,#334155,#0f172a);
+    }
+    .frame-preview:hover { transform: translateY(-3px) scale(1.02); }
+    .frame-preview.selected { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #6366f1, 0 12px 30px rgba(99,102,241,.25); }
+    .frame-preview > div { border-radius: 13px; }
+    .frame-1 { background: linear-gradient(135deg,#6366f1,#06b6d4); }
+    .frame-2 { background: linear-gradient(135deg,#ec4899,#8b5cf6); }
+    .frame-3 { background: linear-gradient(135deg,#10b981,#06b6d4); }
+    .frame-4 { background: linear-gradient(135deg,#f59e0b,#ef4444); }
+    .frame-5 { background: conic-gradient(#6366f1,#ec4899,#f59e0b,#10b981,#6366f1); }
+    .frame-6 { background: linear-gradient(135deg,#f8fafc,#94a3b8); }
+    .frame-7 { background: linear-gradient(135deg,#0ea5e9,#1d4ed8); }
+    .frame-8 { background: linear-gradient(135deg,#a855f7,#4f46e5); }
+    .frame-9 { background: linear-gradient(135deg,#14b8a6,#84cc16); }
+    .frame-10 { background: linear-gradient(135deg,#fb7185,#f97316,#facc15); }
+    .sparkle {
+      animation: floatSoft 2.8s ease-in-out infinite;
+    }
+
+
+
+    /* ===== NFT / SHOP COSMETIC SYSTEM ===== */
+    @keyframes nftFloat {0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-4px) rotate(1deg)}}
+    @keyframes nftShine {0%{transform:translateX(-130%) rotate(12deg)}100%{transform:translateX(420%) rotate(12deg)}}
+    @keyframes nftPulse {0%,100%{opacity:.65;filter:blur(8px)}50%{opacity:1;filter:blur(14px)}}
+    @keyframes nftOrbit {from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes nftRainbow {0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+    .nft-name{position:relative;display:inline-block;font-weight:1000;letter-spacing:-.02em;line-height:1.1;animation:nftFloat 3s ease-in-out infinite}
+    .nft-name::after{content:"";position:absolute;left:-8%;right:-8%;bottom:-5px;height:2px;border-radius:99px;background:currentColor;opacity:.28;filter:blur(2px);animation:nftPulse 2s ease-in-out infinite}
+    .nft-badge{display:inline-flex;align-items:center;gap:5px;margin-left:7px;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:1000;vertical-align:middle;white-space:nowrap;border:1px solid rgba(255,255,255,.25);box-shadow:0 0 14px currentColor;background:rgba(2,6,23,.72);animation:nftFloat 2.6s ease-in-out infinite}
+    .nft-tier{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:1000;padding:3px 7px;border-radius:999px;background:rgba(2,6,23,.72);border:1px solid currentColor;box-shadow:0 0 16px currentColor}
+    .nft-name-gold{color:#ffd54a;text-shadow:0 0 5px #f59e0b,0 0 16px rgba(250,204,21,.8),0 0 35px rgba(245,158,11,.5)}
+    .nft-name-silver{color:#e5e7eb;text-shadow:0 0 8px #fff,0 0 22px rgba(203,213,225,.7)}
+    .nft-name-cyan{color:#67e8f9;text-shadow:0 0 8px #06b6d4,0 0 24px rgba(34,211,238,.7)}
+    .nft-name-emerald{color:#6ee7b7;text-shadow:0 0 8px #10b981,0 0 24px rgba(16,185,129,.7)}
+    .nft-name-royal{color:#c4b5fd;text-shadow:0 0 8px #8b5cf6,0 0 24px rgba(139,92,246,.8)}
+    .nft-name-fire{color:#fb923c;text-shadow:0 0 8px #f97316,0 0 24px rgba(239,68,68,.85)}
+    .nft-name-ice{color:#bae6fd;text-shadow:0 0 8px #38bdf8,0 0 25px rgba(125,211,252,.8)}
+    .nft-name-galaxy{color:#e9d5ff;text-shadow:0 0 8px #c084fc,0 0 25px rgba(168,85,247,.85),0 0 45px rgba(236,72,153,.45)}
+    .nft-name-cosmic{color:#f5d0fe;text-shadow:0 0 8px #e879f9,0 0 25px #a855f7,0 0 48px rgba(34,211,238,.65);animation:nftFloat 2.3s ease-in-out infinite,nftRainbow 7s linear infinite}
+    .nft-name-void{color:#ddd6fe;text-shadow:0 0 7px #8b5cf6,0 0 22px #4c1d95,0 0 45px #111827}
+    .nft-name-celestial{color:#fff7ed;text-shadow:0 0 8px #fbbf24,0 0 20px #60a5fa,0 0 42px rgba(250,204,21,.85)}
+    .nft-name-god{color:#fef3c7;text-shadow:0 0 8px #facc15,0 0 20px #fb7185,0 0 42px #a855f7;animation:nftFloat 1.9s ease-in-out infinite}
+    .nft-name-ultimate{color:#fff7ed;text-shadow:0 0 8px #fff,0 0 18px #facc15,0 0 34px #fb7185,0 0 60px #8b5cf6;animation:nftFloat 1.7s ease-in-out infinite,nftRainbow 5s linear infinite}
+    .nft-product-card{position:relative;overflow:hidden;isolation:isolate;border-radius:24px!important;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+    .nft-product-card:hover{transform:translateY(-5px) scale(1.008);box-shadow:0 24px 70px rgba(0,0,0,.45),0 0 35px var(--nft-glow,rgba(99,102,241,.2))!important}
+    .nft-product-card::before{content:"";position:absolute;inset:-45%;background:radial-gradient(circle,var(--nft-glow,rgba(99,102,241,.16)),transparent 55%);filter:blur(15px);animation:nftPulse 3.2s ease-in-out infinite;z-index:-2}
+    .nft-product-card::after{content:"";position:absolute;top:-40%;left:-15%;width:30%;height:180%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);transform:rotate(14deg);animation:nftShine 4.5s ease-in-out infinite;pointer-events:none;z-index:5}
+    .nft-visual{height:180px;border-radius:20px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(255,255,255,.13);background:var(--nft-bg,#111827);box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+    .nft-visual::before{content:"";position:absolute;inset:-25%;background:conic-gradient(from 0deg,transparent,var(--nft-accent,#60a5fa),transparent 30%);opacity:.25;animation:nftOrbit 8s linear infinite}
+    .nft-visual .nft-icon{position:relative;z-index:2;font-size:72px;filter:drop-shadow(0 0 18px var(--nft-glow,rgba(99,102,241,.7)));animation:nftFloat 2.8s ease-in-out infinite}
+    .nft-visual .nft-spark{position:absolute;inset:0;background-image:radial-gradient(circle,var(--nft-accent,#60a5fa) 0 1px,transparent 1.5px);background-size:35px 35px;opacity:.28;animation:starDrift 8s ease-in-out infinite}
+    .nft-profile-hero{position:relative;overflow:hidden;border:1px solid var(--nft-border,rgba(99,102,241,.35));background:linear-gradient(135deg,rgba(4,10,27,.98),rgba(23,18,48,.92));box-shadow:0 0 45px var(--nft-glow,rgba(99,102,241,.18)),inset 0 1px 0 rgba(255,255,255,.07)}
+    .nft-profile-hero::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle,var(--nft-glow,rgba(99,102,241,.16)),transparent 50%);filter:blur(20px);animation:nftPulse 3s ease-in-out infinite;pointer-events:none}
+    .nft-avatar-effect{position:relative;z-index:1;filter:drop-shadow(0 0 16px var(--nft-glow,rgba(99,102,241,.35)))}
+    .nft-avatar-effect::before{content:"";position:absolute;inset:-10px;border-radius:inherit;border:2px solid var(--nft-accent,#60a5fa);box-shadow:0 0 18px var(--nft-glow,rgba(99,102,241,.55)),inset 0 0 18px var(--nft-glow,rgba(99,102,241,.18));animation:nftOrbit 7s linear infinite;pointer-events:none}
+    .nft-avatar-effect::after{content:attr(data-nft-icon);position:absolute;right:-7px;bottom:-3px;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,.94);border:2px solid var(--nft-accent,#60a5fa);box-shadow:0 0 18px var(--nft-glow,rgba(99,102,241,.6));font-size:18px;animation:nftFloat 2s ease-in-out infinite;pointer-events:none}
+    .nft-input{transition:box-shadow .2s ease,border-color .2s ease}
+    .nft-input::selection{background:rgba(255,255,255,.25)}
+    .nft-input.nft-name-gold,.nft-input.nft-name-silver,.nft-input.nft-name-cyan,.nft-input.nft-name-emerald,.nft-input.nft-name-royal,.nft-input.nft-name-fire,.nft-input.nft-name-ice,.nft-input.nft-name-galaxy,.nft-input.nft-name-cosmic,.nft-input.nft-name-void,.nft-input.nft-name-celestial,.nft-input.nft-name-god,.nft-input.nft-name-ultimate{font-weight:1000!important;background-color:#0b1222!important}
+    .nft-tier-7000{box-shadow:0 0 18px rgba(139,92,246,.55),0 0 45px rgba(139,92,246,.22)}
+    .nft-tier-10000{box-shadow:0 0 22px rgba(250,204,21,.7),0 0 65px rgba(236,72,153,.3),inset 0 0 25px rgba(250,204,21,.08)}
+
+    /* ===== NEON PRO MAX UI ===== */
+    @keyframes neonSweep { 0%{transform:translateX(-120%) rotate(12deg)} 100%{transform:translateX(420%) rotate(12deg)} }
+    @keyframes starDrift { 0%{transform:translate3d(0,0,0);opacity:.35} 50%{transform:translate3d(30px,-18px,0);opacity:.75} 100%{transform:translate3d(0,0,0);opacity:.35} }
+    @keyframes glowPulse { 0%,100%{box-shadow:0 0 14px rgba(34,211,238,.18),0 0 34px rgba(139,92,246,.08)} 50%{box-shadow:0 0 28px rgba(34,211,238,.35),0 0 70px rgba(236,72,153,.16)} }
+    @keyframes orbitLine { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes borderFlow { from{background-position:0% 50%} to{background-position:300% 50%} }
+    body { background:#020617; }
+    .app-fullscreen{min-height:100vh !important;width:100vw !important;}
+    .site-shell{position:relative;overflow:hidden;background:
+      radial-gradient(circle at 78% 8%,rgba(99,102,241,.18),transparent 26%),
+      radial-gradient(circle at 42% 72%,rgba(236,72,153,.12),transparent 28%),
+      linear-gradient(135deg,rgba(2,6,23,.92),rgba(5,8,28,.84));}
+    .site-shell::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;background-image:
+      radial-gradient(circle at 12% 18%,#22d3ee 0 1px,transparent 1.5px),
+      radial-gradient(circle at 78% 28%,#a855f7 0 1px,transparent 1.5px),
+      radial-gradient(circle at 52% 82%,#ec4899 0 1px,transparent 1.5px),
+      radial-gradient(circle at 91% 68%,#22d3ee 0 1px,transparent 1.5px);background-size:180px 180px,240px 240px,220px 220px,260px 260px;animation:starDrift 10s ease-in-out infinite;}
+    .neon-sidebar{width:300px !important;min-width:300px;background:linear-gradient(180deg,rgba(4,8,25,.96),rgba(8,10,30,.92));border-right:1px solid rgba(34,211,238,.35)!important;box-shadow:14px 0 70px rgba(37,99,235,.12),inset -1px 0 rgba(236,72,153,.15);position:relative;z-index:4;}
+    .neon-sidebar::after{content:"";position:absolute;right:-1px;top:0;width:2px;height:100%;background:linear-gradient(180deg,#22d3ee,#6366f1,#ec4899,#22d3ee);background-size:100% 300%;animation:borderFlow 6s linear infinite;}
+    .brand-box{margin:14px 14px 24px;padding:14px;border-radius:22px;background:linear-gradient(135deg,rgba(14,165,233,.18),rgba(168,85,247,.15),rgba(236,72,153,.10));border:1px solid rgba(34,211,238,.3);box-shadow:0 0 28px rgba(34,211,238,.09),inset 0 1px rgba(255,255,255,.07);}
+    .brand-logo{width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,#22d3ee,#6366f1,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;box-shadow:0 0 28px rgba(99,102,241,.5);position:relative;overflow:hidden;}
+    .brand-logo::after{content:"";position:absolute;width:90px;height:16px;background:rgba(255,255,255,.28);transform:rotate(-18deg);left:-80px;animation:neonSweep 4s linear infinite;}
+    .neon-nav{position:relative;margin:5px 12px;padding:13px 14px!important;border:1px solid transparent;border-radius:16px!important;color:#a8b4d2!important;transition:.25s!important;overflow:hidden;}
+    .neon-nav::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(34,211,238,.14),rgba(99,102,241,.16),rgba(236,72,153,.10));transform:translateX(-105%);transition:.3s;}
+    .neon-nav:hover::before,.neon-nav.active::before{transform:translateX(0);}
+    .neon-nav.active{color:#fff!important;border-color:rgba(34,211,238,.6)!important;box-shadow:0 0 20px rgba(34,211,238,.14),inset 0 0 20px rgba(99,102,241,.08);}
+    .neon-nav i,.neon-nav span{position:relative;z-index:1;}
+    .sidebar-profile{margin:12px;border-radius:26px;padding:12px;background:linear-gradient(145deg,rgba(15,23,42,.96),rgba(30,27,75,.78));border:1px solid rgba(168,85,247,.55);box-shadow:0 0 28px rgba(168,85,247,.12);cursor:pointer;transition:.25s;}
+    .sidebar-profile:hover{transform:translateY(-3px);border-color:#22d3ee;box-shadow:0 0 35px rgba(34,211,238,.2),0 18px 45px rgba(0,0,0,.28);}
+    .sidebar-avatar{width:68px;height:68px;flex:none;}
+    .sidebar-name{font-size:14px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .sidebar-edit{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;box-shadow:0 0 16px rgba(236,72,153,.35);}
+    .neon-header{height:92px!important;min-height:92px!important;background:rgba(3,7,20,.78)!important;border-bottom:1px solid rgba(34,211,238,.35)!important;backdrop-filter:blur(22px);box-shadow:0 12px 50px rgba(0,0,0,.25);position:sticky;top:0;z-index:30!important;}
+    .header-title{font-size:24px;font-weight:900;letter-spacing:-.03em;background:linear-gradient(90deg,#22d3ee,#60a5fa,#a855f7,#ec4899);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 24px rgba(99,102,241,.18);}
+    .top-bg-btn{position:relative;overflow:hidden;padding:12px 20px;border-radius:999px;background:linear-gradient(90deg,#06b6d4,#6366f1,#a855f7,#ec4899);background-size:250% 100%;color:#fff;font-weight:900;border:1px solid rgba(255,255,255,.25);box-shadow:0 0 22px rgba(34,211,238,.25),0 0 45px rgba(168,85,247,.16);animation:borderFlow 5s linear infinite;transition:.25s;}
+    .top-bg-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 32px rgba(34,211,238,.38),0 0 65px rgba(236,72,153,.2);}
+    .top-bg-btn::after{content:"";position:absolute;top:-80%;left:-30%;width:28%;height:260%;background:rgba(255,255,255,.24);transform:rotate(18deg);animation:neonSweep 3.8s linear infinite;}
+    .top-profile{min-width:235px!important;border:1px solid rgba(34,211,238,.45)!important;background:linear-gradient(135deg,rgba(15,23,42,.94),rgba(49,46,129,.48))!important;border-radius:999px!important;padding:7px 12px 7px 7px!important;box-shadow:0 0 24px rgba(34,211,238,.12);}
+    .top-profile:hover{border-color:#ec4899!important;box-shadow:0 0 30px rgba(236,72,153,.2);}
+    .top-profile .avatar-frame::before{inset:-5px;}
+    .content-glow{position:relative;z-index:2;}
+    .content-glow::before{content:"";position:absolute;left:10%;right:10%;top:-20px;height:3px;background:linear-gradient(90deg,transparent,#22d3ee,#8b5cf6,#ec4899,#22d3ee,transparent);filter:blur(2px);opacity:.8;}
+    .premium-card,.glass-card,.rainbow-border{box-shadow:0 18px 60px rgba(0,0,0,.3),0 0 32px rgba(99,102,241,.07)!important;}
+    .rainbow-border{border-radius:18px!important;}
+    .rainbow-inner{border-radius:15px!important;background:linear-gradient(145deg,rgba(8,15,36,.94),rgba(17,13,38,.88))!important;border:1px solid rgba(255,255,255,.07);}
+
+    /* ===== Requested UI fixes ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    .site-shell, #app, .site-content, .content-glow, main { min-width: 0; max-width: 100%; }
+    .neon-header { padding-right: clamp(10px, 2vw, 28px) !important; padding-left: clamp(10px, 2vw, 28px) !important; }
+    .header-actions { min-width: 0; max-width: 100%; display:flex; align-items:center; justify-content:flex-end; gap:.55rem; }
+    .header-actions > * { flex: 0 1 auto; min-width: 0; }
+    .lang-hover { position:relative; }
+    .lang-hover > .lang-menu {
+      position:absolute; top:calc(100% + 8px); right:0; z-index:80;
+      width:150px; max-width:calc(100vw - 16px);
+      padding:7px; border:1px solid rgba(34,211,238,.28);
+      border-radius:16px; background:rgba(7,11,22,.96);
+      backdrop-filter:blur(20px); box-shadow:0 20px 55px rgba(0,0,0,.45);
+      opacity:0; visibility:hidden; transform:translateY(-6px) scale(.98);
+      transition:.18s ease; pointer-events:none;
+    }
+    .lang-hover:hover > .lang-menu,
+    .lang-hover:focus-within > .lang-menu { opacity:1; visibility:visible; transform:translateY(0) scale(1); pointer-events:auto; }
+    .lang-option {
+      width:100%; display:flex; align-items:center; gap:9px; padding:9px 10px;
+      border-radius:11px; color:#a8b4d2; font-size:12px; font-weight:800;
+      transition:.18s ease; text-align:left;
+    }
+    .lang-option:hover, .lang-option.active {
+      color:#fff; background:linear-gradient(90deg,rgba(99,102,241,.45),rgba(236,72,153,.22));
+      box-shadow:inset 0 0 0 1px rgba(99,102,241,.28);
+    }
+    .lang-chip {
+      min-width:78px; height:38px; padding:0 9px; display:flex; align-items:center; justify-content:center;
+      border-radius:12px; border:1px solid rgba(99,102,241,.32);
+      background:rgba(15,23,42,.82); color:#dbeafe; font-size:11px; font-weight:900;
+      transition:.18s ease; cursor:pointer;
+    }
+    .lang-chip:hover { border-color:#22d3ee; box-shadow:0 0 18px rgba(34,211,238,.16); transform:translateY(-1px); }
+    .frame-hover { position:relative; }
+    .frame-hover{position:relative}
+    .frame-hover > .frame-menu {
+      position:absolute; top:calc(100% + 8px); right:0; z-index:85;
+      width:min(360px, calc(100vw - 16px)); max-width:calc(100vw - 16px);
+      padding:10px; border:1px solid rgba(236,72,153,.3); border-radius:18px;
+      background:rgba(7,11,22,.97); backdrop-filter:blur(22px);
+      box-shadow:0 24px 70px rgba(0,0,0,.5);
+      opacity:0; visibility:hidden; transform:translateY(-6px) scale(.98);
+      transition:.18s ease; pointer-events:none;
+    }
+    .frame-hover.open > .frame-menu { opacity:1; visibility:visible; transform:translateY(0) scale(1); pointer-events:auto; }
+    .frame-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
+    .frame-choice {
+      min-width:0; padding:7px 4px; border-radius:12px; color:#cbd5e1; font-size:9px; font-weight:800;
+      border:1px solid rgba(148,163,184,.13); background:rgba(15,23,42,.72); transition:.18s ease;
+    }
+    .frame-choice:hover { transform:translateY(-2px); border-color:#22d3ee; box-shadow:0 0 16px rgba(34,211,238,.16); }
+    .frame-choice.active { border-color:#ec4899; box-shadow:0 0 0 1px rgba(236,72,153,.35),0 0 18px rgba(236,72,153,.16); }
+    .frame-mini { width:34px; height:34px; margin:0 auto 4px; }
+    .frame-mini.avatar-frame::before { inset:-3px; }
+    .frame-mini.avatar-frame::after { inset:-1px; }
+    .site-mini-frame{position:relative;background:rgba(15,23,42,.7);border:2px solid var(--mini-frame,#22d3ee);box-shadow:inset 0 0 12px rgba(255,255,255,.03);}
+    .site-frame-1 .site-mini-frame{--mini-frame:#22d3ee}
+    .site-frame-2 .site-mini-frame{--mini-frame:#ec4899}
+    .site-frame-3 .site-mini-frame{--mini-frame:#14b8a6}
+    .site-frame-4 .site-mini-frame{--mini-frame:#f59e0b}
+    .site-frame-5 .site-mini-frame{--mini-frame:#a855f7}
+    .site-frame-6 .site-mini-frame{--mini-frame:#e2e8f0}
+    .site-frame-7 .site-mini-frame{--mini-frame:#38bdf8}
+    .site-frame-8 .site-mini-frame{--mini-frame:#c084fc}
+    .site-frame-9 .site-mini-frame{--mini-frame:#a3e635}
+    .site-frame-10 .site-mini-frame{--mini-frame:#f43f5e}
+    .table-scroll { width:100%; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
+    .safe-card { width:100%; max-width:100%; min-width:0; }
+    .content-glow { overflow-x:hidden; }
+    .modal-safe { width:min(1180px, calc(100vw - 24px)); max-width:calc(100vw - 24px); }
+    .modal-overlay-scroll { overflow-y:auto !important; align-items:flex-start !important; }
+    .modal-overlay-scroll > .profile-modal-wide { margin-top:16px; margin-bottom:16px; }
+    .site-shell { position:relative; isolation:isolate; }
+    .site-shell::before {
+      content:""; position:fixed; inset:10px; border:2px solid var(--site-frame-color, rgba(34,211,238,.5));
+      border-radius:26px; pointer-events:none; z-index:140; box-shadow:0 0 28px var(--site-frame-glow, rgba(34,211,238,.16)), inset 0 0 28px rgba(255,255,255,.02);
+    }
+    .site-frame-1{--site-frame-color:rgba(34,211,238,.62);--site-frame-glow:rgba(34,211,238,.18)}
+    .site-frame-2{--site-frame-color:rgba(236,72,153,.62);--site-frame-glow:rgba(236,72,153,.18)}
+    .site-frame-3{--site-frame-color:rgba(20,184,166,.62);--site-frame-glow:rgba(20,184,166,.18)}
+    .site-frame-4{--site-frame-color:rgba(245,158,11,.64);--site-frame-glow:rgba(245,158,11,.18)}
+    .site-frame-5{--site-frame-color:rgba(168,85,247,.68);--site-frame-glow:rgba(236,72,153,.2)}
+    .site-frame-6{--site-frame-color:rgba(226,232,240,.52);--site-frame-glow:rgba(226,232,240,.12)}
+    .site-frame-7{--site-frame-color:rgba(56,189,248,.64);--site-frame-glow:rgba(56,189,248,.18)}
+    .site-frame-8{--site-frame-color:rgba(192,132,252,.66);--site-frame-glow:rgba(192,132,252,.2)}
+    .site-frame-9{--site-frame-color:rgba(163,230,53,.62);--site-frame-glow:rgba(163,230,53,.18)}
+    .site-frame-10{--site-frame-color:rgba(244,63,94,.64);--site-frame-glow:rgba(244,63,94,.2)}
+    .shop-product-image{width:100%;height:150px;object-fit:cover;border-radius:16px;border:1px solid rgba(148,163,184,.18);background:rgba(15,23,42,.55);}
+    .shop-card{position:relative;overflow:hidden;}
+    .shop-card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:18px;background:linear-gradient(135deg,rgba(99,102,241,.06),transparent 45%,rgba(236,72,153,.06));}
+    .point-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);color:#fcd34d;font-size:11px;font-weight:900;}
+    .cart-row{border:1px solid rgba(148,163,184,.12);border-radius:14px;background:rgba(15,23,42,.6);}
+    @media (max-width:700px){
+      .site-shell::before{inset:6px;border-radius:18px;}
+      .shop-product-image{height:130px;}
+    }
+    @media (max-width: 900px) {
+      .header-actions { gap:.35rem; }
+      .frame-menu { width:min(330px, calc(100vw - 16px)) !important; }
+    }
+    @media (max-width: 700px) {
+      .neon-header { flex-wrap:wrap; gap:8px; padding-top:10px !important; padding-bottom:10px !important; }
+      .header-actions { width:100%; justify-content:flex-end; flex-wrap:wrap; }
+      .header-actions .top-bg-btn { max-width:48vw; overflow:hidden; text-overflow:ellipsis; }
+      .frame-grid { grid-template-columns:repeat(5,minmax(0,1fr)); }
+      .lang-hover > .lang-menu, .frame-hover > .frame-menu { right:0; }
+    }
+
+    @media(max-width:900px){.neon-sidebar{width:235px!important;min-width:235px}.header-title{font-size:18px}.top-profile{min-width:56px!important}.top-profile .profile-text{display:none}.top-bg-btn{padding:10px 14px;font-size:12px}}
+    @media(max-width:700px){.neon-sidebar{width:100%!important;min-width:100%;border-right:0!important;border-bottom:1px solid rgba(34,211,238,.3)}.neon-header{height:auto!important;min-height:76px!important}.header-title{display:none}.top-bg-btn{padding:10px 12px}.sidebar-profile{max-width:360px;margin:12px auto}.site-shell{overflow:auto}}
+
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+  <div id="toast-container"></div>
+  <div id="modal-container"></div>
+  <div id="app" class="min-h-screen flex flex-col"></div>
+
+  <script>
+    const CLASSES_LIST = ['8-"A"', '8-"B"', '8-"C"'];
+    const SUBJECTS_LIST = [
+      "Algebra", "Geometriya", "Informatika", "Fizika", "Kimyo", 
+      "Biologiya", "O'zbekiston tarixi", "Jahon tarixi", "O'zbek tili", "Ingliz tili"
+    ];
+
+    const TRANSLATIONS = {
+      uz: {
+        appName: "VazifaHub",
+        systemTitle: "Uy Vazifalari Platformasi",
+        loginTitle: "Tizimga kirish",
+        loginPlaceholder: "Loginni kiriting",
+        passwordPlaceholder: "Parolni kiriting",
+        signInBtn: "Kirish",
+        parentPortalBtn: "Ota-Onalar: Sinf Reytingini Ko'rish",
+        dashboard: "Boshqaruv",
+        homeworks: "Uy Vazifalari",
+        submissions: "Baholash",
+        students: "O'quvchilar",
+        teachers: "Ustozlar",
+        rating: "Sinf Reytingi",
+        chat: "Muloqot",
+        logout: "Chiqish",
+        totalStudents: "Jami O'quvchilar",
+        totalTeachers: "Jami Ustozlar",
+        roleText: "Sizning Roli",
+        welcome: "Xush kelibsiz!",
+        welcomeDesc: "Har bir sinf va fan qat'iy izolyatsiya qilingan. O'z sinfingizga tegishli ma'lumotlarni ko'rishingiz mumkin.",
+        addStudent: "+ O'quvchi Qo'shish",
+        addTeacher: "+ Ustoz Qo'shish",
+        addHomework: "+ Vazifa Qo'shish",
+        name: "Ism",
+        class: "Sinf",
+        login: "Login",
+        subject: "Fan",
+        actions: "Amal",
+        delete: "O'chirish",
+        save: "Saqlash",
+        cancel: "Bekor qilish",
+        send: "Yuborish",
+        bgSettings: "Fon rasmini o'zgartirish",
+        shop: "Shop",
+        cart: "Korzinka",
+        points: "Ball",
+        addProduct: "+ Shopga narsa qo'shish",
+        buy: "Sotib olish",
+        addToCart: "Korzinkaga qo'shish",
+        emptyCart: "Korzinka bo'sh",
+        telegram: "Telegram orqali olish"
+      },
+      ru: {
+        appName: "VazifaHub",
+        systemTitle: "Платформа Домашних Заданий",
+        loginTitle: "Вход в систему",
+        loginPlaceholder: "Введите логин",
+        passwordPlaceholder: "Введите пароль",
+        signInBtn: "Войти",
+        parentPortalBtn: "Родителям: Рейтинг Класса",
+        dashboard: "Панель",
+        homeworks: "Домашние Задания",
+        submissions: "Оценивание",
+        students: "Ученики",
+        teachers: "Учителя",
+        rating: "Рейтинг Класса",
+        chat: "Общение",
+        logout: "Выйти",
+        totalStudents: "Всего Учеников",
+        totalTeachers: "Всего Учителей",
+        roleText: "Ваша Роль",
+        welcome: "Добро пожаловать!",
+        welcomeDesc: "Все классы и предметы строго изолированы. Вы видите данные только своего класса.",
+        addStudent: "+ Добавить Ученика",
+        addTeacher: "+ Добавить Учителя",
+        addHomework: "+ Добавить Задание",
+        name: "Имя",
+        class: "Класс",
+        login: "Логин",
+        subject: "Предмет",
+        actions: "Действие",
+        delete: "Удалить",
+        save: "Сохранить",
+        cancel: "Отмена",
+        send: "Отправить",
+        bgSettings: "Изменить фоновое изображение",
+        shop: "Магазин",
+        cart: "Корзина",
+        points: "Баллы",
+        addProduct: "+ Добавить товар",
+        buy: "Купить",
+        addToCart: "В корзину",
+        emptyCart: "Корзина пуста",
+        telegram: "Получить через Telegram"
+      }
+    };
+
+    class EduTaskStorage {
+      constructor() {
+        this.STORAGE_KEY = 'vazifahub_database_v42';
+        this.init();
+      }
+
+      init() {
+        if (!localStorage.getItem(this.STORAGE_KEY)) {
+          this.resetToDefaults();
+        }
+      }
+
+      resetToDefaults() {
+        const users = [
+          { id: 'u-admin', name: 'Tizim', surname: 'Administratori', login: 'admin', passwordHash: 'admin123', role: 'admin', className: null, subject: null, avatar: '', frame: 1, siteFrame: 1 },
+          { id: 'u-t1', name: 'Alisher', surname: 'Umarov', login: 'alisher', passwordHash: '12345', role: 'teacher', className: '8-"A"', subject: 'Algebra', avatar: '', frame: 1, siteFrame: 1 },
+          { id: 'u-s1', name: 'Muhammadali', surname: 'Ahmadov', login: 'AHMAIXV11', passwordHash: '2012', role: 'student', className: '8-"A"', subject: null, avatar: '', frame: 1, siteFrame: 1 }
+        ];
+        const homeworks = [
+          { id: 'hw-1', title: 'Kvadrat tenglamalar', description: '5-misolni ishlab kelish', className: '8-"A"', subject: 'Algebra', teacherId: 'u-t1', deadline: '2026-10-15', image: '' }
+        ];
+        const submissions = [];
+        const chatMessages = [];
+        const products = [
+          { id: 'prd-1', name: 'Chiroyli profil ramkasi', description: 'Profil uchun maxsus dekorativ ramka.', price: 50, image: '' },
+          { id: 'prd-2', name: 'Premium badge', description: 'Profilga chiroyli badge.', price: 80, image: '' }
+        ];
+        const initialData = { users, homeworks, submissions, chatMessages, customBg: '', products, carts: {}, purchases: [] };
+        this.save(initialData);
+      }
+
+      getDB() {
+        try {
+          const data = localStorage.getItem(this.STORAGE_KEY);
+          if (!data) {
+            this.resetToDefaults();
+            return JSON.parse(localStorage.getItem(this.STORAGE_KEY));
+          }
+          const db = JSON.parse(data);
+          db.users = (db.users || []).map(u => ({
+            frame: 1,
+            siteFrame: 1,
+            activeProductId: '',
+            nftAvatarEnabled: false,
+            ...u,
+            frame: Number(u.frame || 1),
+            siteFrame: Number(u.siteFrame || u.frame || 1),
+            activeProductId: u.activeProductId || '',
+            nftAvatarEnabled: u.nftAvatarEnabled !== false
+          }));
+          db.homeworks = db.homeworks || [];
+          db.submissions = db.submissions || [];
+          db.chatMessages = db.chatMessages || [];
+          db.products = Array.isArray(db.products) ? db.products : [];
+          if (typeof window !== 'undefined' && typeof normalizeNftDatabase === 'function') normalizeNftDatabase(db);
+          db.carts = db.carts && typeof db.carts === 'object' ? db.carts : {};
+          db.purchases = Array.isArray(db.purchases) ? db.purchases : [];
+          return db;
+        } catch (e) {
+          this.resetToDefaults();
+          return JSON.parse(localStorage.getItem(this.STORAGE_KEY));
+        }
+      }
+
+      save(data) {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+      }
+
+      getUsers() { return this.getDB().users || []; }
+      
+      getUserByLogin(login) {
+        return this.getUsers().find(u => u.login.toLowerCase() === login.trim().toLowerCase());
+      }
+
+      addUser(user) {
+        const db = this.getDB();
+        if (db.users.some(u => u.login.toLowerCase() === user.login.toLowerCase())) {
+          throw new Error('Ushbu login band!');
+        }
+        db.users.push(user);
+        this.save(db);
+      }
+
+      deleteUser(id) {
+        const db = this.getDB();
+        db.users = db.users.filter(u => u.id !== id);
+        this.save(db);
+      }
+
+      getHomeworks() { return this.getDB().homeworks || []; }
+      
+      addHomework(hw) {
+        const db = this.getDB();
+        db.homeworks.unshift(hw);
+        this.save(db);
+      }
+
+      getSubmissions() { return this.getDB().submissions || []; }
+      
+      submitHomework(sub) {
+        const db = this.getDB();
+        const index = db.submissions.findIndex(s => s.homeworkId === sub.homeworkId && s.studentId === sub.studentId);
+        if (index !== -1) {
+          db.submissions[index] = { ...db.submissions[index], ...sub };
+        } else {
+          db.submissions.push(sub);
+        }
+        this.save(db);
+      }
+
+      gradeSubmission(submissionId, grade, feedback) {
+        const db = this.getDB();
+        const sub = db.submissions.find(s => s.id === submissionId);
+        if (sub) {
+          sub.grade = grade;
+          sub.feedback = feedback;
+          sub.status = 'graded';
+          this.save(db);
+        }
+      }
+
+      getChatMessages() { return this.getDB().chatMessages || []; }
+      
+      addChatMessage(msg) {
+        const db = this.getDB();
+        db.chatMessages.push(msg);
+        this.save(db);
+      }
+
+      getCustomBg() {
+        return this.getDB().customBg || '';
+      }
+
+      setCustomBg(bg) {
+        const db = this.getDB();
+        db.customBg = bg;
+        this.save(db);
+      }
+      updateUserProfile(id, patch) {
+        const db = this.getDB();
+        const user = db.users.find(u => u.id === id);
+        if (!user) throw new Error("Foydalanuvchi topilmadi!");
+        Object.assign(user, patch);
+        this.save(db);
+        return user;
+      }
+
+      getUserById(id) {
+        return this.getUsers().find(u => u.id === id);
+      }
+
+      getProducts() { return this.getDB().products || []; }
+
+      setActiveNft(userId, productId, enabled = true) {
+        const db = this.getDB();
+        const user = db.users.find(u => u.id === userId);
+        if (!user) return null;
+        user.activeProductId = productId || '';
+        user.nftAvatarEnabled = !!enabled;
+        this.save(db);
+        return user;
+      }
+
+      addProduct(product) {
+        const db = this.getDB();
+        db.products.unshift(product);
+        this.save(db);
+      }
+
+      deleteProduct(id) {
+        const db = this.getDB();
+        db.products = db.products.filter(p => p.id !== id);
+        Object.keys(db.carts || {}).forEach(uid => {
+          db.carts[uid] = (db.carts[uid] || []).filter(item => item.productId !== id);
+        });
+        this.save(db);
+      }
+
+      getCart(userId) {
+        const db = this.getDB();
+        return Array.isArray(db.carts?.[userId]) ? db.carts[userId] : [];
+      }
+
+      addToCart(userId, productId) {
+        const db = this.getDB();
+        db.carts[userId] = Array.isArray(db.carts[userId]) ? db.carts[userId] : [];
+        const found = db.carts[userId].find(i => i.productId === productId);
+        if (found) found.qty += 1;
+        else db.carts[userId].push({ productId, qty: 1 });
+        this.save(db);
+      }
+
+      removeFromCart(userId, productId) {
+        const db = this.getDB();
+        db.carts[userId] = (db.carts[userId] || []).filter(i => i.productId !== productId);
+        this.save(db);
+      }
+
+      clearCart(userId) {
+        const db = this.getDB();
+        db.carts[userId] = [];
+        this.save(db);
+      }
+
+      getPurchases() { return this.getDB().purchases || []; }
+
+      addPurchase(purchase) {
+        const db = this.getDB();
+        db.purchases.unshift(purchase);
+        this.save(db);
+      }
+
+      getStudentEarnedPoints(userId) {
+        return this.getSubmissions()
+          .filter(s => s.studentId === userId && s.status === 'graded')
+          .reduce((sum, s) => sum + (Number(s.points ?? s.grade ?? 0) || 0), 0);
+      }
+
+      getStudentSpentPoints(userId) {
+        return this.getPurchases()
+          .filter(p => p.studentId === userId && p.status !== 'cancelled')
+          .reduce((sum, p) => sum + (Number(p.total ?? p.price ?? 0) || 0), 0);
+      }
+
+      getStudentBalance(userId) {
+        return Math.max(0, this.getStudentEarnedPoints(userId) - this.getStudentSpentPoints(userId));
+      }
+
+    }
+
+    function normalizeClassName(value) {
+      return String(value || '').replace(/\s+/g, '').replace(/[“”]/g, '"').toLowerCase();
+    }
+
+    function getFreshCurrentUser() {
+      if (!AppState.currentUser?.id) return null;
+      return DB.getUserById(AppState.currentUser.id) || AppState.currentUser;
+    }
+
+    const DB = new EduTaskStorage();
+
+    const AppState = {
+      currentUser: JSON.parse(sessionStorage.getItem('edutask_user')) || null,
+      currentTab: 'dashboard',
+      selectedTeacherForChat: null,
+      isParentPortalOpen: false,
+      currentLang: localStorage.getItem('edutask_lang') || 'uz',
+
+      setCurrentUser(user) {
+        this.currentUser = user;
+        if (user) {
+          sessionStorage.setItem('edutask_user', JSON.stringify(user));
+        } else {
+          sessionStorage.removeItem('edutask_user');
+        }
+        this.currentTab = 'dashboard';
+        renderApp();
+      },
+
+      logout() {
+        this.setCurrentUser(null);
+        showToast('Tizimdan chiqildi', 'info');
+      },
+
+      setLang(lang) {
+        this.currentLang = lang;
+        localStorage.setItem('edutask_lang', lang);
+        renderApp();
+      }
+    };
+
+    function t(key) {
+      const dict = TRANSLATIONS[AppState.currentLang] || TRANSLATIONS.uz;
+      return dict[key] || TRANSLATIONS.uz[key] || key;
+    }
+
+    function applyBackground() {
+      const bg = DB.getCustomBg();
+      if (bg) {
+        document.body.style.backgroundImage = `url('${bg}')`;
+      } else {
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = '#070b16';
+      }
+    }
+    applyBackground();
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      const bgColors = {
+        success: 'bg-emerald-600/90 border-emerald-500 text-white',
+        error: 'bg-rose-600/90 border-rose-500 text-white',
+        info: 'bg-brand-600/90 border-brand-500 text-white'
+      };
+      toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border shadow-2xl backdrop-blur-md fade-in text-xs font-medium ${bgColors[type] || bgColors.info}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info text-base"></i> <span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function closeModal() {
+      const container = document.getElementById('modal-container');
+      if (container) container.innerHTML = '';
+    }
+
+    function renderApp() {
+      const app = document.getElementById('app');
+      if (!app) return;
+      if (AppState.currentUser?.id) {
+        const freshUser = getFreshCurrentUser();
+        if (freshUser) {
+          AppState.currentUser = { ...freshUser };
+          sessionStorage.setItem('edutask_user', JSON.stringify(AppState.currentUser));
+        }
+      }
+      app.innerHTML = '';
+      if (!AppState.currentUser) {
+        if (AppState.isParentPortalOpen) {
+          app.appendChild(renderParentPortalFullView());
+        } else {
+          app.appendChild(renderLoginView());
+        }
+      } else {
+        app.appendChild(renderDashboardLayout());
+      }
+    }
+
+    function renderLangSelector() {
+      const uzActive = AppState.currentLang === 'uz';
+      const ruActive = AppState.currentLang === 'ru';
+      return `
+        <div class="lang-hover" tabindex="0">
+          <button type="button" class="lang-chip" aria-label="Tilni tanlash">
+            <span>${uzActive ? 'UZ' : 'RU'}</span>
+            <i class="fa-solid fa-chevron-down text-[9px] ml-1 opacity-70"></i>
+          </button>
+          <div class="lang-menu">
+            <button type="button" onclick="AppState.setLang('uz')" class="lang-option ${uzActive ? 'active' : ''}">
+              <span>UZ</span>
+            </button>
+            <button type="button" onclick="AppState.setLang('ru')" class="lang-option ${ruActive ? 'active' : ''}">
+              <span>RU</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFrameSelector() {
+      const current = Number(AppState.currentUser?.siteFrame || AppState.currentUser?.frame || 1);
+      return `
+        <div class="frame-hover" id="site-frame-picker">
+          <button type="button" onclick="toggleSiteFrameMenu(event)" class="top-bg-btn flex items-center gap-2 text-xs sm:text-sm whitespace-nowrap" style="padding:10px 14px" aria-label="Sayt ramkasini tanlash">
+            <i class="fa-solid fa-border-all"></i><span class="hidden sm:inline">Sayt ramkasi</span><i class="fa-solid fa-chevron-down text-[9px] opacity-70"></i>
+          </button>
+          <div class="frame-menu">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <div>
+                <p class="text-xs font-black text-white">🖼️ Butun sayt ramkasi</p>
+                <p class="text-[9px] text-slate-500">Saytning tashqi ramkasi va interfeys rangini o'zgartiradi</p>
+              </div>
+              <span class="text-[9px] text-cyan-300 font-black">${SITE_FRAMES.find(f => f.id === current)?.name || 'Neon'}</span>
+            </div>
+            <div class="frame-grid">
+              ${SITE_FRAMES.map(frame => `
+                <button type="button" class="frame-choice ${current === frame.id ? 'active' : ''}" onclick="selectSiteFrame(${frame.id})" title="${frame.name}">
+                  <div class="frame-mini site-mini-frame rounded-xl"></div>
+                  <span class="block truncate">${frame.id}. ${frame.name}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    window.toggleSiteFrameMenu = function(e) {
+      e?.stopPropagation();
+      const picker = document.getElementById('site-frame-picker');
+      if (picker) picker.classList.toggle('open');
+    };
+    document.addEventListener('click', (e) => {
+      const picker = document.getElementById('site-frame-picker');
+      if (picker && !picker.contains(e.target)) picker.classList.remove('open');
+    });
+
+    window.selectSiteFrame = function(frameId) {
+      const user = DB.getUserById(AppState.currentUser.id);
+      if (!user) return;
+      const updated = DB.updateUserProfile(user.id, { siteFrame: Number(frameId) });
+      AppState.currentUser = updated;
+      sessionStorage.setItem('edutask_user', JSON.stringify(updated));
+      renderApp();
+      showToast(`🖼️ ${SITE_FRAMES.find(f => f.id === Number(frameId))?.name || 'Sayt'} ramka tanlandi!`);
+    };
+
+    function renderLoginView() {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'min-h-screen flex items-center justify-center p-4 relative';
+      wrapper.innerHTML = `
+        <div class="absolute top-4 right-4 flex items-center gap-3">
+          <button onclick="openBgModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs transition flex items-center gap-2">
+            <i class="fa-solid fa-image"></i> <span>${t('bgSettings')}</span>
+          </button>
+          ${renderLangSelector()}
+        </div>
+        <div class="w-full max-w-sm rainbow-border shadow-2xl fade-in">
+          <div class="rainbow-inner p-6">
+            <div class="text-center mb-5">
+              <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-accent text-white shadow-lg shadow-brand-500/30 mb-3">
+                <i class="fa-solid fa-school text-2xl"></i>
+              </div>
+              <h1 class="text-2xl font-extrabold tracking-tight text-white">${t('appName')}</h1>
+              <p class="text-slate-400 text-xs mt-0.5">${t('systemTitle')}</p>
+            </div>
+
+            <form id="login-form" class="space-y-3.5">
+              <div>
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-1">Login</label>
+                <input type="text" id="login-input" required placeholder="${t('loginPlaceholder')}" class="w-full glass-input px-3.5 py-2.5 rounded-xl text-slate-100 text-xs focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-slate-300 mb-1">Parol</label>
+                <input type="password" id="password-input" required placeholder="${t('passwordPlaceholder')}" class="w-full glass-input px-3.5 py-2.5 rounded-xl text-slate-100 text-xs focus:outline-none">
+              </div>
+              <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-xs shadow-lg transition">
+                ${t('signInBtn')}
+              </button>
+            </form>
+
+            <div class="mt-5 pt-4 border-t border-brand-border text-center">
+              <button onclick="toggleParentPortal(true)" class="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-md text-xs transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-users"></i>
+                <span>${t('parentPortalBtn')}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        const form = wrapper.querySelector('#login-form');
+        if (form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const login = wrapper.querySelector('#login-input').value.trim();
+            const password = wrapper.querySelector('#password-input').value;
+            const user = DB.getUserByLogin(login);
+            if (!user || user.passwordHash !== password) {
+              showToast("Login yoki parol noto'g'ri!", 'error');
+              return;
+            }
+            showToast(`Xush kelibsiz, ${user.name}!`, 'success');
+            AppState.setCurrentUser(user);
+          });
+        }
+      }, 0);
+
+      return wrapper;
+    }
+
+    window.toggleParentPortal = function(isOpen) {
+      AppState.isParentPortalOpen = isOpen;
+      renderApp();
+    };
+
+    let activeParentClass = CLASSES_LIST[0];
+    let activeParentSubjectFilter = 'ALL';
+
+    function renderParentPortalFullView() {
+      const container = document.createElement('div');
+      container.className = 'min-h-screen flex flex-col text-slate-100 fade-in';
+
+      const classStudents = DB.getUsers().filter(u => u.role === 'student' && u.className === activeParentClass);
+      const allHomeworks = DB.getHomeworks().filter(h => h.className === activeParentClass);
+      const allSubmissions = DB.getSubmissions().filter(s => s.status === 'graded' && s.className === activeParentClass);
+      const subjects = ['ALL', ...SUBJECTS_LIST];
+
+      const getLeaderboard = (subj) => {
+        return classStudents.map(st => {
+          let stSubs = allSubmissions.filter(s => s.studentId === st.id);
+          if (subj !== 'ALL') {
+            stSubs = stSubs.filter(s => {
+              const hw = allHomeworks.find(h => h.id === s.homeworkId);
+              return hw && hw.subject === subj;
+            });
+          }
+          const totalScore = stSubs.reduce((acc, c) => acc + (Number(c.points ?? c.grade ?? 0) || 0), 0);
+          return { ...st, score: totalScore, count: stSubs.length };
+        }).sort((a, b) => b.score - a.score);
+      };
+
+      const currentList = getLeaderboard(activeParentSubjectFilter);
+
+      container.innerHTML = `
+        <header class="glass-nav px-6 py-4 flex items-center justify-between border-b border-brand-border">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-graduation-cap text-lg"></i>
+            </div>
+            <div>
+              <h1 class="text-base font-extrabold text-white">Ota-ona Portali & Sinf Reytingi</h1>
+              <p class="text-xs text-slate-400">Har bir sinf o'quvchilarining natijalari</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            ${renderLangSelector()}
+            <button onclick="toggleParentPortal(false)" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-2">
+              <i class="fa-solid fa-arrow-left"></i> Orqaga
+            </button>
+          </div>
+        </header>
+
+        <main class="flex-1 p-4 md:p-8 max-w-6xl mx-auto w-full space-y-6">
+          <div class="rainbow-border">
+            <div class="rainbow-inner p-5 flex flex-col md:flex-row gap-4 items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Sinfni Tanlang:</h2>
+                <div class="flex gap-2 flex-wrap">
+                  ${CLASSES_LIST.map(c => `
+                    <button onclick="setParentClass('${c}')" class="px-4 py-2 rounded-xl text-xs font-bold transition ${activeParentClass === c ? 'bg-emerald-600 text-white shadow-lg' : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700'}">
+                      ${c} sinf
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="text-right hidden md:block">
+                <span class="text-xs text-slate-400">Jami o'quvchilar:</span>
+                <p class="text-xl font-black text-emerald-400">${classStudents.length} ta</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card p-5 rounded-2xl space-y-4 border border-brand-border shadow-xl">
+            <div class="border-b border-brand-border pb-3">
+              <p class="text-xs font-bold text-slate-300 uppercase mb-2">Fanlar bo'yicha filter:</p>
+              <div class="flex gap-2 overflow-x-auto pb-2 text-xs">
+                ${subjects.map(s => `
+                  <button onclick="setParentSubjectFilter('${s}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition ${activeParentSubjectFilter === s ? 'bg-emerald-600 text-white shadow' : 'bg-slate-800 text-slate-400 hover:text-white'}">
+                    ${s === 'ALL' ? 'Barcha Fanlar' : s}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/40">
+              <table class="w-full text-left text-xs md:text-sm">
+                <thead class="bg-slate-800/80 text-slate-400 uppercase text-[11px]">
+                  <tr>
+                    <th class="p-3.5">O'rin</th>
+                    <th class="p-3.5">O'quvchi F.I.O</th>
+                    <th class="p-3.5">Baholangan Ishlar</th>
+                    <th class="p-3.5 text-right">Umumiy Ball</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                  ${currentList.length === 0 ? `<tr><td colspan="4" class="p-6 text-center text-slate-400">Bu sinfda o'quvchilar yoki baholar mavjud emas.</td></tr>` : ''}
+                  ${currentList.map((item, idx) => `
+                    <tr class="hover:bg-slate-800/40 transition">
+                      <td class="p-3.5 font-bold ${idx === 0 ? 'text-amber-400 text-base' : 'text-slate-400'}">#${idx + 1}</td>
+                      <td class="p-3.5 font-bold text-white flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center text-xs text-emerald-400 font-bold">${item.name.charAt(0)}</div>
+                        <span>${item.name}${item.surname || ''}</span>
+                      </td>
+                      <td class="p-3.5 text-slate-300">${item.count} ta</td>
+                      <td class="p-3.5 text-right font-black text-amber-400 text-sm">${item.score} pt</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      `;
+      return container;
+    }
+
+    window.setParentClass = function(cls) {
+      activeParentClass = cls;
+      renderApp();
+    };
+
+    window.setParentSubjectFilter = function(subj) {
+      activeParentSubjectFilter = subj;
+      renderApp();
+    };
+
+    function renderDashboardLayout() {
+      const layout = document.createElement('div');
+      layout.className = `app-fullscreen site-shell site-frame-${Number(AppState.currentUser?.siteFrame || AppState.currentUser?.frame || 1)} flex flex-col md:flex-row text-slate-100 premium-bg`;
+      const role = AppState.currentUser.role;
+      layout.appendChild(renderSidebar(role));
+
+      const mainContainer = document.createElement('div');
+      mainContainer.className = 'flex-1 flex flex-col min-w-0 overflow-y-auto';
+      mainContainer.appendChild(renderHeader());
+
+      const contentArea = document.createElement('main');
+      contentArea.className = 'content-glow p-4 md:p-7 lg:p-8 flex-1 fade-in';
+
+      switch (AppState.currentTab) {
+        case 'dashboard': contentArea.appendChild(renderDashboardContent(role)); break;
+        case 'students': contentArea.appendChild(renderStudentsContent(role)); break;
+        case 'teachers': contentArea.appendChild(renderTeachersContent(role)); break;
+        case 'homeworks': contentArea.appendChild(renderHomeworksContent(role)); break;
+        case 'submissions': contentArea.appendChild(renderSubmissionsContent()); break;
+        case 'rating': contentArea.appendChild(renderRatingContent()); break;
+        case 'chat': contentArea.appendChild(renderChatContent()); break;
+        case 'shop': contentArea.appendChild(renderShopContent(role)); break;
+        default: contentArea.appendChild(renderDashboardContent(role));
+      }
+
+      mainContainer.appendChild(contentArea);
+      layout.appendChild(mainContainer);
+      return layout;
+    }
+
+
+    const PROFILE_FRAMES = [
+      { id: 1, name: 'Cyan Gul', cls: 'frame-1' },
+      { id: 2, name: 'Pushti Gul', cls: 'frame-2' },
+      { id: 3, name: 'Okean Gul', cls: 'frame-3' },
+      { id: 4, name: 'Quyosh Gul', cls: 'frame-4' },
+      { id: 5, name: 'Kamalak Gul', cls: 'frame-5' },
+      { id: 6, name: 'Kumush Gul', cls: 'frame-6' },
+      { id: 7, name: 'Moviy Gul', cls: 'frame-7' },
+      { id: 8, name: 'Binafsha Gul', cls: 'frame-8' },
+      { id: 9, name: 'Yashil Gul', cls: 'frame-9' },
+      { id: 10, name: 'Olov Gul', cls: 'frame-10' }
+    ];
+
+    const SITE_FRAMES = [
+      { id: 1, name: 'Neon Cyan', cls: 'site-frame-1' },
+      { id: 2, name: 'Pushti Dream', cls: 'site-frame-2' },
+      { id: 3, name: 'Okean', cls: 'site-frame-3' },
+      { id: 4, name: 'Quyosh', cls: 'site-frame-4' },
+      { id: 5, name: 'Kamalak', cls: 'site-frame-5' },
+      { id: 6, name: 'Kumush', cls: 'site-frame-6' },
+      { id: 7, name: 'Moviy', cls: 'site-frame-7' },
+      { id: 8, name: 'Binafsha', cls: 'site-frame-8' },
+      { id: 9, name: 'Yashil', cls: 'site-frame-9' },
+      { id: 10, name: 'Olov', cls: 'site-frame-10' }
+    ];
+
+    function getProfileFrameClass(user) {
+      const n = Number(user?.frame || 1);
+      return PROFILE_FRAMES.find(f => f.id === n)?.cls || 'frame-1';
+    }
+
+    function avatarMarkup(user, size = 'w-10 h-10', extra = '') {
+      const initials = `${(user?.name || '?').charAt(0)}${(user?.surname || '').charAt(0)}`.toUpperCase();
+      const nft = getActiveNft(user);
+      const image = user?.avatar
+        ? `<img src="${user.avatar}" class="profile-avatar" alt="Profil rasmi">`
+        : `<div class="w-full h-full rounded-[inherit] flex items-center justify-center text-white font-black bg-gradient-to-br from-indigo-600 to-cyan-500">${initials}</div>`;
+      const useNft = nft && user?.nftAvatarEnabled !== false;
+      const wrap = useNft ? `nft-avatar-effect ${nftNameClass(nft)}` : '';
+      const badge = useNft ? `<span class="absolute z-10 -right-2 -bottom-1 w-8 h-8 rounded-full flex items-center justify-center text-base bg-slate-950/95 border-2 shadow-lg" style="border-color:${nft.accent};box-shadow:0 0 18px ${nft.accent}88">${nft.icon}</span>` : '';
+      return `<div class="avatar-frame ${size} rounded-full ${getProfileFrameClass(user)} ${wrap} ${extra}" ${useNft ? `style="${nftCssVars(nft)}" data-nft-icon="${nft.icon}"` : ''}>${image}${badge}</div>`;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    function profileName(user) {
+      return [user?.name, user?.surname].filter(Boolean).join(' ');
+    }
+
+    const NFT_CATALOG = [
+      { id:'prd-3', name:'Mini ryukzak', description:'Profilga kichik kolleksiya belgisi.', price:25, icon:'🎒', effect:'cyan', label:'RYUKZAK', bg:'linear-gradient(135deg,#06283d,#0e7490)', accent:'#22d3ee' },
+      { id:'prd-4', name:'Mini uy', description:'Profilga uy egasi belgisi.', price:50, icon:'🏠', effect:'emerald', label:'UY EGASI', bg:'linear-gradient(135deg,#052e1b,#047857)', accent:'#34d399' },
+      { id:'prd-2', name:'Kumush kitob', description:'Kumush kitob kolleksiyasi.', price:100, icon:'📚', effect:'silver', label:'KUMUSH', bg:'linear-gradient(135deg,#1e293b,#64748b)', accent:'#e2e8f0' },
+      { id:'prd-1', name:'Oltin hovli', description:'Profil uchun oltin mulk NFT.', price:200, icon:'🏡', effect:'gold', label:'OLTIN', bg:'linear-gradient(135deg,#422006,#a16207,#facc15)', accent:'#facc15' },
+      { id:'prd-5', name:'Aydar qalqoni', description:'Kuchli himoya kolleksiyasi.', price:350, icon:'🛡️', effect:'royal', label:'QALQON', bg:'linear-gradient(135deg,#172554,#4338ca,#7c3aed)', accent:'#a78bfa' },
+      { id:'prd-6', name:'Qirollik toji', description:'Qirollik darajasidagi premium belgi.', price:500, icon:'👑', effect:'royal', label:'QIROL', bg:'linear-gradient(135deg,#3b0764,#7e22ce,#f59e0b)', accent:'#c4b5fd' },
+      { id:'prd-7', name:'Phoenix', description:'700 ballik olovli ism NFT.', price:700, icon:'🔥', effect:'fire', label:'PHOENIX', bg:'linear-gradient(135deg,#450a0a,#c2410c,#facc15)', accent:'#fb923c' },
+      { id:'prd-8', name:'Diamond Aura', description:'Muzdek olmos aura va yaltirash.', price:1200, icon:'💎', effect:'ice', label:'DIAMOND', bg:'linear-gradient(135deg,#082f49,#0369a1,#67e8f9)', accent:'#67e8f9' },
+      { id:'prd-9', name:'Galaxy Crown', description:'Galaktik yulduzlar va toj aura.', price:2500, icon:'🌌', effect:'galaxy', label:'GALAXY', bg:'linear-gradient(135deg,#1e1b4b,#6d28d9,#be185d)', accent:'#c084fc' },
+      { id:'prd-10', name:'Cosmic Phoenix', description:'Koinot va olov birlashgan ultra NFT.', price:5000, icon:'🪐', effect:'cosmic', label:'COSMIC', bg:'linear-gradient(135deg,#172554,#7e22ce,#be123c,#0891b2)', accent:'#e879f9' },
+      { id:'prd-11', name:'VOID EMPEROR', description:'7000 ballik qorong‘u imperator aura.', price:7000, icon:'🌀', effect:'void', label:'VOID', bg:'linear-gradient(135deg,#020617,#1e1b4b,#312e81)', accent:'#8b5cf6' },
+      { id:'prd-12', name:'CELESTIAL KING', description:'8000 ballik halo va qirollik nurlari.', price:8000, icon:'⚜️', effect:'celestial', label:'CELESTIAL', bg:'linear-gradient(135deg,#172554,#0c4a6e,#92400e)', accent:'#fbbf24' },
+      { id:'prd-13', name:'GALACTIC GOD', description:'9000 ballik galaktik portlash va rangli aura.', price:9000, icon:'☄️', effect:'god', label:'GOD', bg:'linear-gradient(135deg,#4c1d95,#be185d,#0369a1,#f59e0b)', accent:'#facc15' },
+      { id:'prd-14', name:'ULTIMATE LEGEND', description:'10000 ballik eng yuqori doimiy premium effekt.', price:10000, icon:'👑', effect:'ultimate', label:'ULTIMATE', bg:'linear-gradient(135deg,#111827,#7c2d12,#f59e0b,#7e22ce,#1d4ed8)', accent:'#facc15' }
+    ];
+
+    function nftForProduct(product) {
+      if (!product) return null;
+      const n = (product.name || '').toLowerCase();
+      const direct = NFT_CATALOG.find(x => x.id === product.id);
+      if (direct) return { ...direct, ...product, icon: product.icon || direct.icon, effect: product.effect || direct.effect, label: product.label || direct.label, bg: product.bg || direct.bg, accent: product.accent || direct.accent };
+      if (n.includes('oltin') || n.includes('gold')) return { ...NFT_CATALOG[3], ...product, effect:'gold', icon:product.icon||'🏡', label:product.label||'OLTIN' };
+      if (n.includes('kumush') || n.includes('silver')) return { ...NFT_CATALOG[2], ...product, effect:'silver', icon:product.icon||'📚', label:product.label||'KUMUSH' };
+      if (n.includes('toj') || n.includes('crown')) return { ...NFT_CATALOG[5], ...product, effect:'royal', icon:product.icon||'👑', label:product.label||'QIROL' };
+      if (n.includes('phoenix') || n.includes('olov') || n.includes('fire')) return { ...NFT_CATALOG[6], ...product, effect:'fire', icon:product.icon||'🔥', label:product.label||'PHOENIX' };
+      if (Number(product.price) >= 10000) return { ...NFT_CATALOG[13], ...product, effect:'ultimate', icon:product.icon||'👑', label:product.label||'ULTIMATE' };
+      if (Number(product.price) >= 9000) return { ...NFT_CATALOG[12], ...product, effect:'god', icon:product.icon||'☄️', label:product.label||'GOD' };
+      if (Number(product.price) >= 8000) return { ...NFT_CATALOG[11], ...product, effect:'celestial', icon:product.icon||'⚜️', label:product.label||'CELESTIAL' };
+      if (Number(product.price) >= 7000) return { ...NFT_CATALOG[10], ...product, effect:'void', icon:product.icon||'🌀', label:product.label||'VOID' };
+      if (Number(product.price) >= 5000) return { ...NFT_CATALOG[9], ...product, effect:'cosmic', icon:product.icon||'🪐', label:product.label||'COSMIC' };
+      if (Number(product.price) >= 2500) return { ...NFT_CATALOG[8], ...product, effect:'galaxy', icon:product.icon||'🌌', label:product.label||'GALAXY' };
+      if (Number(product.price) >= 1200) return { ...NFT_CATALOG[7], ...product, effect:'ice', icon:product.icon||'💎', label:product.label||'DIAMOND' };
+      if (Number(product.price) >= 700) return { ...NFT_CATALOG[6], ...product, effect:'fire', icon:product.icon||'🔥', label:product.label||'PHOENIX' };
+      if (Number(product.price) >= 500) return { ...NFT_CATALOG[5], ...product, effect:'royal', icon:product.icon||'👑', label:product.label||'QIROL' };
+      if (Number(product.price) >= 350) return { ...NFT_CATALOG[4], ...product, effect:'royal', icon:product.icon||'🛡️', label:product.label||'QALQON' };
+      if (Number(product.price) >= 200) return { ...NFT_CATALOG[3], ...product, effect:'gold', icon:product.icon||'🏡', label:product.label||'OLTIN' };
+      if (Number(product.price) >= 100) return { ...NFT_CATALOG[2], ...product, effect:'silver', icon:product.icon||'📚', label:product.label||'KUMUSH' };
+      if (Number(product.price) >= 50) return { ...NFT_CATALOG[1], ...product, effect:'emerald', icon:product.icon||'🏠', label:product.label||'UY EGASI' };
+      return { ...NFT_CATALOG[0], ...product, effect:'cyan', icon:product.icon||'🎒', label:product.label||'RYUKZAK' };
+    }
+
+    function normalizeNftDatabase(db) {
+      const existing = new Set((db.products || []).map(p => p.id));
+      NFT_CATALOG.forEach(item => {
+        if (!existing.has(item.id)) db.products.push({ ...item, image: '' });
+      });
+      db.products = db.products.map((p, i) => {
+        const meta = NFT_CATALOG.find(x => x.id === p.id) || nftForProduct(p) || NFT_CATALOG[i % NFT_CATALOG.length];
+        return { ...p, ...meta, image: p.image || '' };
+      });
+      db.users = (db.users || []).map(u => ({ activeProductId:'', nftAvatarEnabled:false, ...u, nftAvatarEnabled:u.nftAvatarEnabled !== false }));
+      (db.users || []).forEach(u => {
+        if (!u.activeProductId && u.role === 'student') {
+          const latest = (db.purchases || []).find(p => p.studentId === u.id && p.status === 'paid');
+          if (latest && db.products.some(p => p.id === latest.productId)) { u.activeProductId = latest.productId; u.nftAvatarEnabled = true; }
+        }
+      });
+    }
+
+    function getActiveNft(user) {
+      if (!user?.activeProductId) return null;
+      const product = DB.getProducts().find(p => p.id === user.activeProductId);
+      return product ? nftForProduct(product) : null;
+    }
+
+    function nftNameClass(nft) { return nft ? `nft-name-${nft.effect || 'cyan'}` : ''; }
+    function nftCssVars(nft) { return nft ? `--nft-accent:${nft.accent || '#60a5fa'};--nft-glow:${nft.accent || '#60a5fa'}55;--nft-bg:${nft.bg || '#111827'};--nft-border:${nft.accent || '#60a5fa'}66;` : ''; }
+    function nftTier(nft) {
+      if (!nft) return '';
+      const p = Number(nft.price || 0);
+      return p >= 10000 ? 'ULTIMATE • 10 000' : p >= 9000 ? 'GOD • 9 000+' : p >= 8000 ? 'CELESTIAL • 8 000+' : p >= 7000 ? 'VOID • 7 000+' : p >= 5000 ? 'COSMIC • 5 000+' : p >= 2500 ? 'GALAXY • 2 500+' : p >= 1000 ? 'PREMIUM • 1 000+' : p >= 700 ? 'EPIC • 700+' : 'COLLECTION';
+    }
+
+    function profileNameMarkup(user, extraClass='') {
+      const nft = getActiveNft(user);
+      const name = escapeHtml(profileName(user) || 'Admin');
+      if (!nft) return `<span class="${extraClass}">${name}</span>`;
+      return `<span class="nft-name ${nftNameClass(nft)} ${extraClass}" style="${nftCssVars(nft)}">${name}</span><span class="nft-badge" style="color:${nft.accent};--nft-accent:${nft.accent}" title="${escapeHtml(nft.name)}">${nft.icon} NFT</span>`;
+    }
+
+    function applyNftToInputs() {
+      const user = DB.getUserById(AppState.currentUser.id) || AppState.currentUser;
+      const nft = getActiveNft(user);
+      const inputs = document.querySelectorAll('#profile-name,#profile-surname');
+      inputs.forEach(input => {
+        input.classList.remove(...NFT_CATALOG.map(x => `nft-name-${x.effect}`));
+        input.classList.add('nft-input');
+        if (nft) {
+          input.classList.add(nftNameClass(nft));
+          input.style.textShadow = `0 0 8px ${nft.accent}, 0 0 18px ${nft.accent}88`;
+          input.style.borderColor = `${nft.accent}99`;
+          input.style.boxShadow = `0 0 18px ${nft.accent}22`;
+        } else {
+          input.style.textShadow=''; input.style.borderColor=''; input.style.boxShadow='';
+        }
+      });
+    }
+
+    function renderSidebar(role) {
+      const sidebar = document.createElement('aside');
+      sidebar.className = 'neon-sidebar flex flex-col justify-between p-0 z-20';
+
+      const menuItems = [
+        { id: 'dashboard', label: t('dashboard'), icon: 'fa-chart-pie', roles: ['admin', 'teacher', 'student'] },
+        { id: 'homeworks', label: t('homeworks'), icon: 'fa-book-open', roles: ['teacher', 'student'] },
+        { id: 'submissions', label: `${t('submissions')} ${DB.getSubmissions().filter(s => s.status !== 'graded' && DB.getHomeworks().some(h => h.id === s.homeworkId && h.teacherId === AppState.currentUser?.id)).length ? `<span class="ml-auto min-w-5 h-5 px-1 rounded-full bg-rose-500 text-white text-[9px] flex items-center justify-center">${DB.getSubmissions().filter(s => s.status !== 'graded' && DB.getHomeworks().some(h => h.id === s.homeworkId && h.teacherId === AppState.currentUser?.id)).length}</span>` : ''}`, icon: 'fa-file-signature', roles: ['teacher'] },
+        { id: 'students', label: t('students'), icon: 'fa-user-graduate', roles: ['admin', 'teacher', 'student'] },
+        { id: 'shop', label: t('shop'), icon: 'fa-store', roles: ['admin', 'student'] },
+        { id: 'teachers', label: t('teachers'), icon: 'fa-chalkboard-user', roles: ['admin', 'teacher', 'student'] },
+        { id: 'rating', label: t('rating'), icon: 'fa-trophy', roles: ['admin', 'teacher', 'student'] },
+        { id: 'chat', label: t('chat'), icon: 'fa-comments', roles: ['admin', 'teacher', 'student'] }
+      ];
+
+      const filteredItems = menuItems.filter(item => item.roles.includes(role));
+
+      sidebar.innerHTML = `
+        <div class="flex-1">
+          <div class="brand-box">
+            <div class="flex items-center gap-3">
+              <div class="brand-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div class="min-w-0">
+                <h2 class="text-xl font-black text-white tracking-tight">VazifaHub</h2>
+                <span class="text-[11px] uppercase text-cyan-300 font-black tracking-[.18em]">Uy Vazifalari Platformasi</span>
+              </div>
+            </div>
+          </div>
+          <nav class="px-1 space-y-1">
+            ${filteredItems.map(item => `
+              <button onclick="switchTab('${item.id}')" class="neon-nav ${AppState.currentTab === item.id ? 'active' : ''} w-full flex items-center gap-4 text-left font-bold">
+                <i class="fa-solid ${item.icon} text-lg w-6 text-center"></i>
+                <span class="text-[14px]">${item.label}</span>
+              </button>
+            `).join('')}
+          </nav>
+        </div>
+        <div class="pb-4">
+          <div onclick="openProfileModal()" class="sidebar-profile">
+            <div class="flex items-center gap-3">
+              <div class="sidebar-avatar">${avatarMarkup(AppState.currentUser, 'w-full h-full')}</div>
+              <div class="min-w-0 flex-1">
+                <div class="sidebar-name">${profileNameMarkup(AppState.currentUser)}</div>
+                <div class="text-[11px] text-cyan-300 font-bold mt-1">${AppState.currentUser.role === 'admin' ? 'Administrator' : (AppState.currentUser.subject || AppState.currentUser.role)}</div>
+                <div class="text-[10px] text-slate-500 mt-1">Profilni tahrirlash</div>
+              </div>
+              <div class="sidebar-edit"><i class="fa-solid fa-pen"></i></div>
+            </div>
+          </div>
+          <button onclick="AppState.logout()" class="mx-3 w-[calc(100%-24px)] py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-fuchsia-600 hover:brightness-110 text-white text-sm font-black transition border border-pink-300/20 shadow-lg shadow-pink-900/30">
+            <i class="fa-solid fa-right-from-bracket mr-2"></i>${t('logout')}
+          </button>
+        </div>
+      `;
+      return sidebar;
+    }
+
+    window.switchTab = function(tabId) {
+      AppState.currentTab = tabId;
+      renderApp();
+    };
+
+    function renderHeader() {
+      const header = document.createElement('header');
+      header.className = 'neon-header px-5 md:px-8 flex items-center justify-between gap-3';
+      header.innerHTML = `
+        <div class="flex items-center gap-3 min-w-0 flex-1">
+          <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-600 to-fuchsia-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-graduation-cap text-xl"></i>
+          </div>
+          <div class="min-w-0">
+            <h1 class="header-title truncate">${t('appName')} <span class="hidden sm:inline">— ${t('systemTitle')}</span></h1>
+            <p class="text-[10px] sm:text-xs text-slate-500 font-semibold mt-0.5">Uy vazifalarini boshqarish platformasi</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button onclick="openBgModal()" class="top-bg-btn flex items-center gap-2 text-xs sm:text-sm whitespace-nowrap">
+            <i class="fa-solid fa-wand-magic-sparkles"></i><span class="hidden md:inline">Fonni Almashtirish</span>
+          </button>
+          ${renderFrameSelector()}
+          ${renderLangSelector()}
+        </div>
+      `;
+      return header;
+    }
+
+    function renderDashboardContent(role) {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      
+      let studentsCount = DB.getUsers().filter(u => u.role === 'student').length;
+      let teachersCount = DB.getUsers().filter(u => u.role === 'teacher').length;
+
+      if (role === 'student' || role === 'teacher') {
+        const myClass = AppState.currentUser.className;
+        studentsCount = DB.getUsers().filter(u => u.role === 'student' && u.className === myClass).length;
+      }
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="rainbow-border">
+            <div class="rainbow-inner p-4">
+              <p class="text-[10px] font-semibold uppercase text-slate-400">${t('totalStudents')}</p>
+              <h3 class="text-2xl font-extrabold mt-0.5 text-white">${studentsCount} ta</h3>
+            </div>
+          </div>
+          <div class="rainbow-border">
+            <div class="rainbow-inner p-4">
+              <p class="text-[10px] font-semibold uppercase text-slate-400">${t('totalTeachers')}</p>
+              <h3 class="text-2xl font-extrabold mt-0.5 text-white">${teachersCount} ta</h3>
+            </div>
+          </div>
+          <div class="rainbow-border">
+            <div class="rainbow-inner p-4">
+              <p class="text-[10px] font-semibold uppercase text-slate-400">${t('roleText')}</p>
+              <h3 class="text-lg font-extrabold mt-0.5 text-white capitalize">${role} ${role === 'teacher' ? '(' + AppState.currentUser.className + ' - ' + AppState.currentUser.subject + ')' : (role === 'student' ? '(' + AppState.currentUser.className + ')' : '')}</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-slate-700/60 space-y-2">
+          <h3 class="font-bold text-base text-white">${t('welcome')}</h3>
+          <p class="text-slate-400 text-xs">${t('welcomeDesc')}</p>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderStudentsContent(role) {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      
+      let students = DB.getUsers().filter(u => u.role === 'student');
+      if (role === 'teacher' || role === 'student') {
+        students = students.filter(s => s.className === AppState.currentUser.className);
+      }
+
+      container.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+          <div>
+            <h2 class="text-base font-bold text-white">${t('students')} ${role !== 'admin' ? '(' + AppState.currentUser.className + ' sinf)' : ''}</h2>
+            ${role === 'student' ? `<div class="text-[11px] text-amber-300 mt-1">Sizning shop balingiz: <b>${DB.getStudentBalance(AppState.currentUser.id)} pt</b></div>` : ''}
+          </div>
+          <div class="flex gap-2">
+            ${role === 'student' ? `<button onclick="switchTab('shop')" class="px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white text-xs font-black rounded-xl">🛍 ${t('shop')}</button>` : ''}
+          ${role === 'admin' ? `
+            <button onclick="openAddStudentModal()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl transition">
+              ${t('addStudent')}
+            </button>
+          ` : ''}
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl overflow-hidden border border-brand-border safe-card">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px]">
+              <tr>
+                <th class="p-3">${t('name')}</th>
+                <th class="p-3">${t('class')}</th>
+                <th class="p-3">${t('login')}</th>
+                <th class="p-3">${t('points')}</th>
+                ${role === 'admin' ? `<th class="p-3 text-right">${t('actions')}</th>` : ''}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              ${students.length === 0 ? `<tr><td colspan="5" class="p-4 text-center text-slate-400">O'quvchilar topilmadi</td></tr>` : ''}
+              ${students.map(s => `
+                <tr class="hover:bg-slate-800/40 transition">
+                  <td class="p-3 font-bold text-white">${s.name}${s.surname || ''}</td>
+                  <td class="p-3 text-slate-300">${s.className}</td>
+                  <td class="p-3 font-mono text-brand-accent">${s.login}</td>
+                  <td class="p-3 text-amber-400 font-black">${DB.getStudentBalance(s.id)} pt</td>
+                  ${role === 'admin' ? `
+                    <td class="p-3 text-right">
+                      <button onclick="deleteUser('${s.id}')" class="px-2.5 py-1 bg-rose-900/30 text-rose-400 hover:bg-rose-900/60 rounded-lg transition">${t('delete')}</button>
+                    </td>
+                  ` : ''}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderTeachersContent(role) {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      const teachers = DB.getUsers().filter(u => u.role === 'teacher');
+
+      container.innerHTML = `
+        <div class="flex justify-between items-center">
+          <h2 class="text-base font-bold text-white">${t('teachers')}</h2>
+          ${role === 'admin' ? `
+            <button onclick="openAddTeacherModal()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl transition">
+              ${t('addTeacher')}
+            </button>
+          ` : ''}
+        </div>
+        <div class="glass-card rounded-2xl overflow-hidden border border-brand-border safe-card">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px]">
+              <tr>
+                <th class="p-3">${t('name')}</th>
+                <th class="p-3">${t('subject')}</th>
+                <th class="p-3">${t('class')}</th>
+                <th class="p-3">${t('login')}</th>
+                ${role === 'admin' ? `<th class="p-3 text-right">${t('actions')}</th>` : ''}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              ${teachers.map(tch => `
+                <tr class="hover:bg-slate-800/40 transition">
+                  <td class="p-3 font-bold text-white">${tch.name}${tch.surname || ''}</td>
+                  <td class="p-3 text-brand-accent">${tch.subject}</td>
+                  <td class="p-3 text-slate-300">${tch.className}</td>
+                  <td class="p-3 font-mono text-slate-400">${tch.login}</td>${role === 'admin' ? `
+                    <td class="p-3 text-right">
+                      <button onclick="deleteUser('${tch.id}')" class="px-2.5 py-1 bg-rose-900/30 text-rose-400 hover:bg-rose-900/60 rounded-lg transition">${t('delete')}</button>
+                    </td>
+                  ` : ''}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderHomeworksContent(role) {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      const currentUser = getFreshCurrentUser();
+      const myClass = currentUser?.className || '';
+      let homeworks = DB.getHomeworks();
+      if (role === 'teacher') {
+        homeworks = homeworks.filter(h => h.teacherId === currentUser?.id);
+      } else if (role === 'student') {
+        homeworks = homeworks.filter(h =>
+          (Array.isArray(h.studentIds) && h.studentIds.includes(currentUser?.id)) ||
+          normalizeClassName(h.className) === normalizeClassName(myClass)
+        );
+      }
+
+      container.innerHTML = `
+        <div class="flex justify-between items-center">
+          <h2 class="text-base font-bold text-white">${t('homeworks')}</h2>
+          ${role === 'teacher' ? `
+            <button onclick="openAddHomeworkModal()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl transition">
+              ${t('addHomework')}
+            </button>
+          ` : ''}
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          ${homeworks.length === 0 ? `<p class="text-xs text-slate-400">Vazifalar topilmadi.</p>` : ''}
+          ${homeworks.map(hw => {
+            const submission = role === 'student' ? DB.getSubmissions().find(s => s.homeworkId === hw.id && s.studentId === AppState.currentUser.id) : null;
+            return `
+              <div class="glass-card p-4 rounded-2xl border border-brand-border safe-card flex flex-col justify-between space-y-3">
+                <div>
+                  <div class="flex justify-between items-start">
+                    <span class="px-2 py-0.5 rounded bg-brand-600/30 text-brand-accent text-[10px] font-bold">${hw.subject}</span>
+                    <span class="text-[10px] text-slate-400">${hw.className}</span>
+                  </div>
+                  <h3 class="font-bold text-sm text-white mt-2">${hw.title}</h3>
+                  <p class="text-xs text-slate-300 mt-1">${hw.description}</p><div class="text-[10px] text-slate-500 mt-2">Topshirish muddati: <span class="text-slate-300">${hw.deadline || "Koʻrsatilmagan"}</span></div>${hw.image ? `<img src="${hw.image}" alt="Vazifa rasmi" class="mt-3 w-full max-h-48 object-contain rounded-xl border border-slate-700 bg-slate-950/50 cursor-pointer" onclick="openImagePreview(this.src)">` : ""}
+                </div>
+                ${role === 'student' ? `
+                  <div class="pt-2 border-t border-slate-800">
+                    ${submission ? `
+                      <div class="text-xs flex justify-between items-center gap-2">
+                        <span class="text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> Vazifa bajarildi</span>
+                        <span>Baho: <b class="text-amber-400">${submission.grade !== undefined ? submission.grade : 'Tekshirilmoqda'}</b></span>
+                      </div>
+                      ${submission.points !== undefined ? `<div class="text-[11px] text-amber-300 mt-1">Berilgan ball: <b>${submission.points}</b> pt</div>` : ''}
+                      ${submission.feedback ? `<p class="text-[11px] text-slate-400 mt-2">Ustoz izohi: ${submission.feedback}</p>` : ''}
+                      ${submission.feedbackImage ? `<img src="${submission.feedbackImage}" alt="Tekshiruv rasmi" class="mt-2 w-full max-h-40 object-contain rounded-xl border border-emerald-500/30 cursor-pointer" onclick="openImagePreview(this.src)">` : ''}
+                    ` : `
+                      <button onclick="openSubmitModal('${hw.id}')" class="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition">
+                        Vazifani topshirish
+                      </button>
+                    `}
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      return container;
+    }
+
+    function renderSubmissionsContent() {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      const teacherHwIds = DB.getHomeworks().filter(h => h.teacherId === AppState.currentUser.id).map(h => h.id);
+      const submissions = DB.getSubmissions().filter(s => teacherHwIds.includes(s.homeworkId));
+
+      container.innerHTML = `
+        <h2 class="text-base font-bold text-white">${t('submissions')}</h2>
+        <div class="glass-card rounded-2xl overflow-hidden border border-brand-border safe-card">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px]">
+              <tr>
+                <th class="p-3">O'quvchi</th>
+                <th class="p-3">Vazifa</th>
+                <th class="p-3">Javob / Fayl</th>
+                <th class="p-3">Baho</th>
+                <th class="p-3">Ball</th>
+                <th class="p-3">Holat</th>
+                <th class="p-3 text-right">Amal</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              ${submissions.length === 0 ? `<tr><td colspan="8" class="p-4 text-center text-slate-400">Kelib tushgan javoblar yo'q</td></tr>` : ''}
+              ${submissions.map(sub => {
+                const st = DB.getUsers().find(u => u.id === sub.studentId);
+                const hw = DB.getHomeworks().find(h => h.id === sub.homeworkId);
+                return `
+                  <tr class="hover:bg-slate-800/40 transition">
+                    <td class="p-3 font-bold text-white">${st ? st.name : 'Nomaʼlum'}</td>
+                    <td class="p-3 text-slate-300">${hw ? hw.title : ''}</td>
+                    <td class="p-3 text-brand-accent"><div>${sub.answerText || "Rasmli javob"}</div>${sub.image ? `<img src="${sub.image}" alt="O‘quvchi javobi" class="mt-2 w-24 h-24 object-cover rounded-lg border border-slate-700 cursor-pointer" onclick="openImagePreview(this.src)">` : ""}${sub.feedbackImage ? `<img src="${sub.feedbackImage}" alt="Ustoz izohi" class="mt-2 w-24 h-24 object-cover rounded-lg border border-emerald-500/30 cursor-pointer" onclick="openImagePreview(this.src)">` : ""}</td>
+                    <td class="p-3 font-bold text-amber-400">${sub.grade !== undefined ? sub.grade : 'Qoʻyilmagan'}</td>
+                    <td class="p-3 font-bold text-emerald-400">${sub.points !== undefined ? sub.points + ' pt' : '—'}</td>
+                    <td class="p-3">${sub.status === 'graded' ? '<span class="px-2 py-1 rounded-full bg-emerald-500/15 text-emerald-300">Tekshirildi</span>' : '<span class="px-2 py-1 rounded-full bg-amber-500/15 text-amber-300">Yangi</span>'}</td>
+                    <td class="p-3 text-right">
+                      <button onclick="openGradeModal('${sub.id}')" class="px-2.5 py-1 bg-brand-600 hover:bg-brand-500 text-white rounded-lg transition">Baholash</button>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderRatingContent() {
+      const container = document.createElement('div');
+      container.className = 'space-y-4';
+      const myClass = AppState.currentUser.className || CLASSES_LIST[0];
+      const students = DB.getUsers().filter(u => u.role === 'student' && u.className === myClass);
+      const gradedSubs = DB.getSubmissions().filter(s => s.status === 'graded' && s.className === myClass);
+
+      const ratingList = students.map(st => {
+        const score = gradedSubs.filter(s => s.studentId === st.id).reduce((acc, c) => acc + (parseFloat(c.grade) || 0), 0);
+        return { ...st, score };
+      }).sort((a, b) => b.score - a.score);
+
+      container.innerHTML = `
+        <h2 class="text-base font-bold text-white">${t('rating')} (${myClass} sinf)</h2>
+        <div class="glass-card rounded-2xl overflow-hidden border border-brand-border safe-card">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/80 text-slate-400 uppercase text-[10px]">
+              <tr>
+                <th class="p-3">O'rin</th>
+                <th class="p-3">O'quvchi</th>
+                <th class="p-3 text-right">Ball</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              ${ratingList.map((st, idx) => `
+                <tr class="hover:bg-slate-800/40 transition">
+                  <td class="p-3 font-bold ${idx === 0 ? 'text-amber-400' : 'text-slate-400'}">#${idx + 1}</td>
+                  <td class="p-3 font-bold">${profileNameMarkup(st)}</td>
+                  <td class="p-3 text-right font-black text-amber-400">${st.score} pt</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+      return container;
+    }
+
+    function renderChatContent() {
+      const container = document.createElement('div');
+      container.className = 'glass-card rounded-2xl border border-brand-border h-[75vh] flex flex-col overflow-hidden';
+      const messages = DB.getChatMessages();
+
+      container.innerHTML = `
+        <div class="p-3 bg-slate-900/80 border-b border-brand-border font-bold text-xs text-white">Muloqot Kanali</div>
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3">
+          ${messages.length === 0 ? `<p class="text-xs text-slate-400 text-center">Xabarlar yo'q. Birinchi bo'lib yozing!</p>` : ''}
+          ${messages.map(m => `
+            <div class="flex flex-col ${m.senderId === AppState.currentUser.id ? 'items-end' : 'items-start'}">
+              <span class="text-[10px] text-slate-400 mb-0.5">${m.senderName}</span>
+              <div class="px-3 py-2 rounded-xl text-xs max-w-xs ${m.senderId === AppState.currentUser.id ? 'bg-brand-600 text-white' : 'bg-slate-800 text-slate-200'}">
+                ${m.text}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        <form id="chat-form" class="p-3 bg-slate-900/80 border-t border-brand-border flex gap-2">
+          <input type="text" id="chat-input" placeholder="Xabar yozing..." required class="flex-1 glass-input px-3 py-2 rounded-xl text-xs text-white focus:outline-none">
+          <button type="submit" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition">Yuborish</button>
+        </form>
+      `;
+
+      setTimeout(() => {
+        const box = container.querySelector('#chat-messages');
+        if (box) box.scrollTop = box.scrollHeight;
+        const form = container.querySelector('#chat-form');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const txt = container.querySelector('#chat-input').value.trim();
+          if (!txt) return;
+          DB.addChatMessage({
+            senderId: AppState.currentUser.id,
+            senderName: AppState.currentUser.name,
+            text: txt,
+            time: new Date().toLocaleTimeString()
+          });
+          renderApp();
+        });
+      }, 0);
+
+      return container;
+    }
+
+    function fileToDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    window.openImagePreview = function(src) {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `<div class="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-[100] fade-in" onclick="closeModal()">
+        <img src="${src}" alt="Rasm" class="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl border border-white/10">
+      </div>`;
+    };
+
+    // Modal funksiyalari va amallar
+    window.openAddStudentModal = function() {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-brand-border space-y-4">
+            <h3 class="font-bold text-sm text-white">Yangi O'quvchi Qo'shish</h3>
+            <form id="add-st-form" class="space-y-3">
+              <input type="text" id="st-name" placeholder="Ism" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="text" id="st-surname" placeholder="Familiya" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <select id="st-class" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white bg-slate-900">
+                ${CLASSES_LIST.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+              <input type="text" id="st-login" placeholder="Login" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="password" id="st-pass" placeholder="Parol" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold">Qo'shish</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('add-st-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        try {
+          DB.addUser({
+            id: 'u-' + Date.now(),
+            name: document.getElementById('st-name').value.trim(),
+            surname: document.getElementById('st-surname').value.trim(),
+            login: document.getElementById('st-login').value.trim(),
+            passwordHash: document.getElementById('st-pass').value,
+            role: 'student',
+            className: document.getElementById('st-class').value,
+            subject: null
+          });
+          closeModal();
+          showToast("O'quvchi muvaffaqiyatli qo'shildi!");
+          renderApp();
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      });
+    };
+
+    window.openAddTeacherModal = function() {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-brand-border space-y-4">
+            <h3 class="font-bold text-sm text-white">Yangi Ustoz Qo'shish</h3>
+            <form id="add-tch-form" class="space-y-3">
+              <input type="text" id="tch-name" placeholder="Ism" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="text" id="tch-surname" placeholder="Familiya" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <select id="tch-subj" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white bg-slate-900">
+                ${SUBJECTS_LIST.map(s => `<option value="${s}">${s}</option>`).join('')}
+              </select>
+              <select id="tch-class" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white bg-slate-900">
+                ${CLASSES_LIST.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+              <input type="text" id="tch-login" placeholder="Login" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="password" id="tch-pass" placeholder="Parol" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold">Qo'shish</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('add-tch-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        try {
+          DB.addUser({
+            id: 'u-' + Date.now(),
+            name: document.getElementById('tch-name').value.trim(),
+            surname: document.getElementById('tch-surname').value.trim(),
+            login: document.getElementById('tch-login').value.trim(),
+            passwordHash: document.getElementById('tch-pass').value,
+            role: 'teacher',
+            className: document.getElementById('tch-class').value,
+            subject: document.getElementById('tch-subj').value
+          });
+          closeModal();
+          showToast("Ustoz muvaffaqiyatli qo'shildi!");
+          renderApp();
+        } catch (err) {
+          showToast(err.message, 'error');
+        }
+      });
+    };
+
+    window.openAddHomeworkModal = function() {
+      const mc = document.getElementById('modal-container');
+      const teacher = getFreshCurrentUser();
+      if (!teacher || teacher.role !== 'teacher') {
+        showToast("Faqat ustoz uy vazifasi bera oladi!", "error");
+        return;
+      }
+      const teacherClass = teacher.className || CLASSES_LIST[0];
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-brand-border space-y-4">
+            <h3 class="font-bold text-sm text-white">Yangi Vazifa Qo'shish</h3>
+            <p class="text-[11px] text-cyan-300 font-semibold">Bu vazifa ${teacherClass} sinfidagi o'quvchilarga avtomatik yuboriladi.</p>
+            <form id="add-hw-form" class="space-y-3">
+              <input type="text" id="hw-title" placeholder="Vazifa nomi" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <textarea id="hw-desc" placeholder="Tavsif" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white"></textarea>
+              <label class="block text-xs text-slate-300 font-semibold">Vazifaga rasm (ixtiyoriy)<input type="file" id="hw-image" accept="image/*" class="w-full mt-1 text-xs text-slate-400"></label>
+              <input type="date" id="hw-deadline" value="2026-10-20" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <select id="hw-class" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white bg-slate-900">
+                <option value="${teacherClass}" selected>${teacherClass}</option>
+              </select>
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold">Yuborish</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('add-hw-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const freshTeacher = getFreshCurrentUser();
+          const targetClass = document.getElementById('hw-class').value;
+          const studentIds = DB.getUsers()
+            .filter(u => u.role === 'student' && normalizeClassName(u.className) === normalizeClassName(targetClass))
+            .map(u => u.id);
+          const file = document.getElementById('hw-image').files[0];
+          const image = file ? await fileToDataURL(file) : '';
+
+          DB.addHomework({
+            id: 'hw-' + Date.now(),
+            title: document.getElementById('hw-title').value.trim(),
+            description: document.getElementById('hw-desc').value.trim(),
+            className: targetClass,
+            subject: freshTeacher?.subject || '',
+            teacherId: freshTeacher?.id,
+            teacherName: freshTeacher ? `${freshTeacher.name} ${freshTeacher.surname || ''}`.trim() : '',
+            studentIds,
+            deadline: document.getElementById('hw-deadline')?.value || '',
+            assignedAt: new Date().toISOString(),
+            image
+          });
+          closeModal();
+          showToast(`Vazifa ${studentIds.length} ta o'quvchiga yuborildi!`);
+          renderApp();
+        } catch (err) {
+          showToast("Vazifani saqlashda xatolik yuz berdi!", "error");
+          console.error(err);
+        }
+      });
+    };
+
+    window.openSubmitModal = function(hwId) {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-brand-border space-y-4">
+            <h3 class="font-bold text-sm text-white">Vazifani Topshirish</h3>
+            <form id="submit-hw-form" class="space-y-3">
+              <textarea id="sub-text" placeholder="Javobingizni yozing..." class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white"></textarea>
+              <label class="block text-xs text-slate-300 font-semibold">Javob rasmi (ixtiyoriy)<input type="file" id="sub-image" accept="image/*" class="w-full mt-1 text-xs text-slate-400"></label>
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold">Topshirish</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('submit-hw-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const textAnswer = document.getElementById('sub-text').value.trim();
+        const file = document.getElementById('sub-image').files[0];
+        if (!textAnswer && !file) {
+          showToast("Matn yoki rasm yuboring!", "error");
+          return;
+        }
+        const image = file ? await fileToDataURL(file) : '';
+        DB.submitHomework({
+          id: 'sub-' + Date.now(),
+          homeworkId: hwId,
+          studentId: getFreshCurrentUser()?.id || AppState.currentUser.id,
+          className: getFreshCurrentUser()?.className || AppState.currentUser.className,
+          answerText: textAnswer,
+          image,
+          status: 'submitted',
+          submittedAt: new Date().toISOString()
+        });
+        closeModal();
+        showToast("Vazifa topshirildi!");
+        renderApp();
+      });
+    };
+
+    window.openGradeModal = function(subId) {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-sm p-5 rounded-2xl border border-brand-border space-y-4">
+            <h3 class="font-bold text-sm text-white">Ishni Baholash</h3>
+            <form id="grade-form" class="space-y-3">
+              <input type="number" id="grade-val" min="1" max="5" placeholder="Baho (1-5)" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="number" id="grade-points" min="0" max="100" placeholder="Ball (0-100)" required class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <input type="text" id="grade-feedback" placeholder="Izoh (ixtiyoriy)" class="w-full glass-input px-3 py-2 rounded-xl text-xs text-white">
+              <label class="block text-xs text-slate-300 font-semibold">Tekshiruv rasmi (ixtiyoriy)<input type="file" id="grade-image" accept="image/*" class="w-full mt-1 text-xs text-slate-400"></label>
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2 bg-brand-600 text-white rounded-xl text-xs font-bold">Saqlash</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('grade-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const g = document.getElementById('grade-val').value;
+        const points = document.getElementById('grade-points').value;
+        const fb = document.getElementById('grade-feedback').value;
+        if (points === '') {
+          showToast("Ballni kiriting!", "error");
+          return;
+        }
+        const file = document.getElementById('grade-image').files[0];
+        const image = file ? await fileToDataURL(file) : '';
+        const db = DB.getDB();
+        const sub = db.submissions.find(x => x.id === subId);
+        if (sub) {
+          sub.grade = g;
+          sub.points = Number(points);
+          sub.feedback = fb;
+          sub.feedbackImage = image;
+          sub.status = 'graded';
+          DB.save(db);
+        }
+        closeModal();
+        showToast("Baho qo'yildi!");
+        renderApp();
+      });
+    };
+
+    window.deleteUser = function(id) {
+      if (confirm("Haqiqatan ham o'chirmoqchimisiz?")) {
+        DB.deleteUser(id);
+        showToast("Foydalanuvchi o'chirildi!");
+        renderApp();
+      }
+    };
+
+
+    // Professional profil: ism/familiya, avatar va 10 xil ramka
+    window.openProfileModal = function() {
+      const user = DB.getUserById(AppState.currentUser.id) || AppState.currentUser;
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 md:p-5 z-50 fade-in modal-overlay-scroll">
+          <div class="glass-card premium-card profile-modal-wide rounded-3xl border border-slate-700/80 overflow-hidden">
+            <div class="relative p-5 md:p-7">
+              <div class="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-fuchsia-500/10 blur-3xl"></div>
+              <div class="absolute -bottom-24 -left-20 w-64 h-64 rounded-full bg-cyan-500/10 blur-3xl"></div>
+
+              <div class="relative flex items-start justify-between gap-4 mb-5">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="sparkle text-xl">✨</span>
+                    <h3 class="font-black text-xl md:text-2xl text-white">Profilimni sozlash</h3>
+                  </div>
+                  <p class="text-xs text-slate-400 mt-1">Rasm, ism va faqat profilingiz uchun 10 xil premium ramkani boshqaring. Butun sayt ramkasi yuqoridagi "Sayt ramkasi" tugmasida.</p>
+                </div>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="profile-hero rounded-3xl p-5 md:p-6 mb-6">
+                <div class="flex flex-col lg:flex-row items-center lg:items-start gap-6">
+                  <div class="flex flex-col items-center gap-2 shrink-0">
+                    <div id="profile-live-avatar">
+                      ${avatarMarkup(user, 'w-44 h-44')}
+                    </div>
+                    <span class="text-[10px] uppercase tracking-[.22em] text-cyan-300 font-black">Profilim</span>
+                  </div>
+
+                  <div class="flex-1 w-full grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Ism</label>
+                      <input id="profile-name" value="${(user.name || '').replace(/"/g,'&quot;')}" class="w-full glass-input px-3.5 py-3.5 rounded-xl text-sm text-white">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Familiya</label>
+                      <input id="profile-surname" value="${(user.surname || '').replace(/"/g,'&quot;')}" class="w-full glass-input px-3.5 py-3.5 rounded-xl text-sm text-white">
+                    </div>
+                    <div class="md:col-span-2 flex flex-col sm:flex-row gap-2">
+                      <label class="cursor-pointer flex-1">
+                        <input id="profile-avatar-file" type="file" accept="image/*" class="hidden">
+                        <span class="flex items-center justify-center gap-2 w-full px-4 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 hover:brightness-110 text-white text-xs font-black transition shadow-lg">
+                          <i class="fa-solid fa-camera"></i> Profil rasmini almashtirish
+                        </span>
+                      </label>
+                      <button type="button" onclick="removeProfileAvatar()" class="sm:w-48 px-4 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-300 text-xs font-bold transition border border-slate-700">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Rasmni olib tashlash
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                ${(() => { const nft=getActiveNft(user); return nft ? `<div class="nft-profile-hero mt-5 rounded-2xl p-4 md:p-5" style="${nftCssVars(nft)}"><div class="relative z-10 flex flex-col sm:flex-row items-center gap-4"><div>${avatarMarkup(user,'w-28 h-28','nft-avatar-large')}</div><div class="min-w-0 flex-1 text-center sm:text-left"><div class="text-[9px] uppercase tracking-[.2em] text-slate-400 font-black">PROFIL NOMI</div><div class="mt-1">${profileNameMarkup(user,'text-2xl md:text-3xl')}</div><div class="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2"><span class="nft-tier" style="color:${nft.accent}">${nft.icon} NFT • ${nft.name}</span><span class="nft-tier" style="color:${nft.accent}">${nftTier(nft)}</span></div><p class="text-[10px] mt-2 font-bold" style="color:${nft.accent}">✓ Ism, familiya va profil rasmi uchun ${nft.label} effekti faol</p></div><button type="button" onclick="toggleNftAvatar(); closeModal();" class="px-4 py-3 rounded-xl text-[10px] font-black text-white" style="background:linear-gradient(90deg,${nft.accent}cc,#0891b2)">${user.nftAvatarEnabled===false?'Profil rasmiga NFTni yoqish':'NFT profil rasmi: Yoqilgan'}</button></div></div>` : `<div class="rounded-2xl mt-5 p-4 bg-slate-950/40 border border-slate-700 text-center text-xs text-slate-500">🛍 Shopdan NFT olsangiz, u shu yerda avtomatik ism, familiya va profil rasmingizga effekt beradi.</div>`; })()}
+              </div>
+
+              <div class="rounded-2xl bg-cyan-400/5 border border-cyan-400/10 p-3 mb-4">
+                <p class="text-[10px] text-cyan-200"><i class="fa-solid fa-circle-info mr-1"></i> Profil ramkasi shu oynada tanlanadi. Saytning tashqi ramkasi esa tepada joylashgan <b>Sayt ramkasi</b> tugmasidan boshqariladi.</p>
+              </div>
+
+              <div class="rounded-3xl bg-slate-950/35 border border-slate-700/70 p-4 md:p-5">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                  <div>
+                    <p class="text-sm font-black text-white">✨ Sayt bo'ylab premium ramka</p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Bu yerda tanlangan ramka faqat profil rasmingizga tegishli.</p>
+                  </div>
+                  <span id="frame-name" class="self-start sm:self-auto text-[10px] font-black text-cyan-300 bg-cyan-400/10 border border-cyan-400/20 px-3 py-1.5 rounded-full">${PROFILE_FRAMES.find(f => f.id === Number(user.frame || 1))?.name || 'Neon'}</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5">
+                  ${PROFILE_FRAMES.map(frame => `
+                    <button type="button" onclick="selectProfileFrame(${frame.id})"
+                      class="frame-preview ${frame.cls} ${Number(user.frame || 1) === frame.id ? 'selected' : ''}">
+                      <div class="frame-icon mx-auto"><i class="fa-solid fa-user text-slate-300"></i></div>
+                      <span class="block text-[9px] font-bold text-white mt-1.5 truncate">${frame.id}. ${frame.name}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-2 pt-5">
+                <button onclick="saveProfile()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-600 hover:brightness-110 text-white text-xs font-black shadow-lg transition">
+                  <i class="fa-solid fa-floppy-disk mr-1"></i> O'zgarishlarni saqlash
+                </button>
+                <button onclick="closeModal()" class="sm:w-40 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+                  Bekor qilish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      window.__profileDraft = {
+        avatar: user.avatar || '',
+        frame: Number(user.frame || 1)
+      };
+
+      applyNftToInputs();
+      document.querySelectorAll('#profile-name,#profile-surname').forEach(el => el.addEventListener('input', applyNftToInputs));
+
+      const fileInput = document.getElementById('profile-avatar-file');
+      fileInput?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          showToast("Faqat rasm faylini tanlang!", 'error');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          window.__profileDraft.avatar = reader.result;
+          refreshProfilePreview();
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+
+    function refreshProfilePreview() {
+      const user = DB.getUserById(AppState.currentUser.id) || AppState.currentUser;
+      const previewUser = { ...user, avatar: window.__profileDraft?.avatar || '', frame: window.__profileDraft?.frame || 1 };
+      const box = document.getElementById('profile-live-avatar');
+      if (box) box.innerHTML = avatarMarkup(previewUser, 'w-44 h-44');
+      const name = PROFILE_FRAMES.find(f => f.id === Number(previewUser.frame))?.name || 'Neon';
+      const label = document.getElementById('frame-name');
+      if (label) label.textContent = name;
+      document.querySelectorAll('.frame-preview').forEach((el, i) => {
+        el.classList.toggle('selected', i + 1 === Number(previewUser.frame));
+      });
+    }
+
+    window.selectProfileFrame = function(frameId) {
+      window.__profileDraft = window.__profileDraft || {};
+      window.__profileDraft.frame = frameId;
+      refreshProfilePreview();
+    };
+
+    window.removeProfileAvatar = function() {
+      window.__profileDraft = window.__profileDraft || {};
+      window.__profileDraft.avatar = '';
+      refreshProfilePreview();
+    };
+
+    window.saveProfile = function() {
+      const name = document.getElementById('profile-name')?.value.trim();
+      const surname = document.getElementById('profile-surname')?.value.trim();
+      if (!name) {
+        showToast("Ism bo'sh bo'lishi mumkin emas!", 'error');
+        return;
+      }
+      const current = DB.getUserById(AppState.currentUser.id) || AppState.currentUser;
+      const updated = DB.updateUserProfile(AppState.currentUser.id, {
+        name,
+        surname,
+        avatar: window.__profileDraft?.avatar || '',
+        frame: Number(window.__profileDraft?.frame || 1),
+        siteFrame: Number(current.siteFrame || current.frame || 1),
+        activeProductId: current.activeProductId || '',
+        nftAvatarEnabled: current.nftAvatarEnabled !== false
+      });
+      AppState.currentUser = updated;
+      sessionStorage.setItem('edutask_user', JSON.stringify(updated));
+      closeModal();
+      renderApp();
+      showToast("Profil muvaffaqiyatli yangilandi!", 'success');
+    };
+
+
+    function renderShopContent(role) {
+      const container = document.createElement('div');
+      container.className = 'space-y-5';
+      const userId = AppState.currentUser.id;
+      const products = DB.getProducts();
+      const balance = role === 'student' ? DB.getStudentBalance(userId) : null;
+      const cart = role === 'student' ? DB.getCart(userId) : [];
+      const cartDetailed = cart.map(item => {
+        const product = products.find(p => p.id === item.productId);
+        return product ? { ...item, product, total: product.price * item.qty } : null;
+      }).filter(Boolean);
+      const cartTotal = cartDetailed.reduce((sum, item) => sum + item.total, 0);
+      const purchases = role === 'student' ? DB.getPurchases().filter(p => p.studentId === userId) : DB.getPurchases();
+
+      if (role === 'admin') {
+        container.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+              <h2 class="text-xl font-black text-white">🛍 Shop boshqaruvi</h2>
+              <p class="text-xs text-slate-400 mt-1">O'quvchilar yig'gan ballari evaziga oladigan narsalarni shu yerdan qo'shing.</p>
+            </div>
+            <button onclick="openAddProductModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white text-xs font-black">${t('addProduct')}</button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rainbow-border"><div class="rainbow-inner p-4"><div class="text-[10px] text-slate-400 uppercase">Mahsulotlar</div><div class="text-2xl font-black mt-1">${products.length}</div></div></div>
+            <div class="rainbow-border"><div class="rainbow-inner p-4"><div class="text-[10px] text-slate-400 uppercase">Sotuvlar</div><div class="text-2xl font-black mt-1">${purchases.length}</div></div></div>
+            <div class="rainbow-border"><div class="rainbow-inner p-4"><div class="text-[10px] text-slate-400 uppercase">Telegram</div><div class="text-base font-black mt-2 text-cyan-300">@Ahmadov_2012</div></div></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${products.length === 0 ? `<div class="glass-card p-6 rounded-2xl text-center text-slate-400 text-sm md:col-span-3">Shop hali bo'sh.</div>` : products.map(p => `
+              ${(() => { const nft = nftForProduct(p); return `<div class="glass-card shop-card nft-product-card p-4 border" style="${nftCssVars(nft)};--nft-glow:${nft.accent}66">
+                <div class="nft-visual" style="--nft-bg:${nft.bg};--nft-accent:${nft.accent}">${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.name)}" class="relative z-[3] w-full h-full object-cover rounded-2xl">` : ''}<div class="nft-spark"></div><div class="nft-icon">${nft.icon}</div><div class="absolute left-3 top-3 z-10 nft-tier" style="color:${nft.accent}">${nftTier(nft)}</div></div>
+                <div class="mt-4 relative z-10">
+                  <div class="flex items-start justify-between gap-2"><h3 class="font-black text-white text-sm">${escapeHtml(nft.name)}</h3><span class="point-chip">${nft.price} pt</span></div>
+                  <p class="text-xs mt-2 font-bold" style="color:${nft.accent}">${nft.icon} ${nft.label} • ${nft.effect} effect</p>
+                  <p class="text-xs text-slate-400 mt-2">${escapeHtml(nft.description || '')}</p>
+                  <button onclick="deleteProduct('${p.id}')" class="mt-4 w-full py-2 rounded-xl bg-rose-900/30 hover:bg-rose-900/50 text-rose-300 text-xs font-bold">O'chirish</button>
+                </div>
+              </div>`; })()}
+            `).join('')}
+          </div>
+          <div class="glass-card rounded-2xl border border-brand-border overflow-hidden">
+            <div class="p-4 font-black text-white">Xaridlar tarixi</div>
+            <div class="table-scroll"><table class="w-full text-left text-xs"><thead class="bg-slate-800/70 text-slate-400"><tr><th class="p-3">O'quvchi</th><th class="p-3">Narsa</th><th class="p-3">Ball</th><th class="p-3">Holat</th></tr></thead><tbody class="divide-y divide-slate-800">
+              ${purchases.length === 0 ? `<tr><td colspan="4" class="p-5 text-center text-slate-400">Hali xarid yo'q.</td></tr>` : purchases.map(p => {
+                const st = DB.getUsers().find(u => u.id === p.studentId);
+                return `<tr><td class="p-3 text-white font-bold">${st ? profileName(st) : 'Nomaʼlum'}</td><td class="p-3 text-slate-300">${p.productName} × ${p.qty}</td><td class="p-3 text-amber-300 font-black">${p.total} pt</td><td class="p-3 text-emerald-300">${p.status === 'paid' ? 'Toʻlandi' : p.status}</td></tr>`;
+              }).join('')}
+            </tbody></table></div>
+          </div>
+        `;
+        return container;
+      }
+
+      container.innerHTML = `
+        <div class="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+          <div>
+            <h2 class="text-xl font-black text-white">🛍 ${t('shop')}</h2>
+            <p class="text-xs text-slate-400 mt-1">Baholangan vazifalardan yig'ilgan ballaringizni sarflang.</p>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="point-chip"><i class="fa-solid fa-star"></i> ${balance} pt</span>
+            <span class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold">${t('cart')}: ${cartDetailed.reduce((n, x) => n + x.qty, 0)} ta</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          ${products.length === 0 ? `<div class="glass-card p-6 rounded-2xl text-center text-slate-400 text-sm md:col-span-3">Admin hali shopga narsa qo'shmagan.</div>` : products.map(p => `
+            ${(() => { const nft = nftForProduct(p); return `<div class="glass-card shop-card nft-product-card p-4 border" style="${nftCssVars(nft)};--nft-glow:${nft.accent}66">
+              <div class="nft-visual" style="--nft-bg:${nft.bg};--nft-accent:${nft.accent}">${p.image ? `<img src="${p.image}" alt="${escapeHtml(p.name)}" class="relative z-[3] w-full h-full object-cover rounded-2xl cursor-pointer" onclick="openImagePreview(this.src)">` : ''}<div class="nft-spark"></div><div class="nft-icon">${nft.icon}</div><div class="absolute left-3 top-3 z-10 nft-tier ${Number(nft.price)>=7000?'nft-tier-7000':''} ${Number(nft.price)>=10000?'nft-tier-10000':''}" style="color:${nft.accent}">${nftTier(nft)}</div></div>
+              <div class="mt-4 relative z-10">
+                <div class="flex items-start justify-between gap-2">
+                  <h3 class="font-black text-white text-sm">${escapeHtml(nft.name)} <span class="text-xs" style="color:${nft.accent}">${nft.icon}</span></h3>
+                  <span class="point-chip">${nft.price} pt</span>
+                </div>
+                <div class="mt-2 flex flex-wrap gap-1.5"><span class="nft-tier" style="color:${nft.accent}">${nft.label}</span><span class="nft-tier" style="color:${nft.accent}">${nft.effect.toUpperCase()} EFFECT</span></div>
+                <p class="text-xs text-slate-400 mt-2">${escapeHtml(nft.description || '')}</p>
+                <p class="text-[10px] mt-2 font-bold" style="color:${nft.accent}">Ism + familiya + profil rasmi uchun alohida ${nft.label} effekti</p>
+                <button onclick="addProductToCart('${p.id}')" class="mt-4 w-full py-2.5 rounded-xl text-white text-xs font-black" style="background:linear-gradient(90deg,${nft.accent}bb,#0891b2)">${t('addToCart')}</button>
+              </div>
+            </div>`; })()}
+          `).join('')}
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-2xl border border-brand-border">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-black text-white">${t('cart')}</h3>
+              <span class="text-xs text-slate-400">${cartDetailed.reduce((n, x) => n + x.qty, 0)} ta</span>
+            </div>
+            <div class="space-y-2">
+              ${cartDetailed.length === 0 ? `<div class="rounded-xl bg-slate-900/50 p-5 text-center text-slate-500 text-xs">${t('emptyCart')}</div>` : cartDetailed.map(item => `
+                <div class="cart-row p-3 flex items-center justify-between gap-3">
+                  <div class="min-w-0">
+                    <div class="font-bold text-white text-xs truncate">${item.product.name}</div>
+                    <div class="text-[11px] text-slate-400">${item.qty} × ${item.product.price} pt</div>
+                  </div>
+                  <button onclick="removeCartItem('${item.productId}')" class="px-2 py-1 rounded-lg bg-slate-800 text-rose-300 text-[10px]">Olib tashlash</button>
+                </div>
+              `).join('')}
+            </div>
+            ${cartDetailed.length ? `
+              <div class="border-t border-slate-800 mt-4 pt-3 flex items-center justify-between">
+                <span class="text-sm font-black text-white">Jami</span>
+                <span class="text-lg font-black text-amber-300">${cartTotal} pt</span>
+              </div>
+              <button onclick="checkoutCart()" class="mt-3 w-full py-2.5 rounded-xl ${balance >= cartTotal ? 'bg-brand-600 hover:bg-brand-500' : 'bg-slate-700 cursor-not-allowed'} text-white text-xs font-black" ${balance >= cartTotal ? '' : 'disabled'}>
+                ${t('buy')} — ${cartTotal} pt
+              </button>
+              ${balance < cartTotal ? `<p class="text-[10px] text-rose-300 mt-2">Ball yetarli emas. Hozirgi balans: ${balance} pt.</p>` : ''}
+            ` : ''}
+          </div>
+          <div class="glass-card p-4 rounded-2xl border border-brand-border">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-black text-white">🧾 Mening xaridlarim</h3>
+              <button onclick="contactTelegram()" class="px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-[10px] font-black"><i class="fa-brands fa-telegram mr-1"></i>${t('telegram')}</button>
+            </div>
+            <div class="space-y-2">
+              ${purchases.length === 0 ? `<div class="text-xs text-slate-500 p-4">Hali xarid qilmagansiz.</div>` : purchases.slice(0,8).map(p => { const pr = products.find(x=>x.id===p.productId); const nft=nftForProduct(pr||p); const active=(AppState.currentUser.activeProductId===p.productId); return `
+                <div class="cart-row p-3 flex items-center justify-between gap-3" style="border-color:${nft.accent}55">
+                  <div class="min-w-0"><div class="text-xs font-black" style="color:${nft.accent}">${nft.icon} ${escapeHtml(p.productName)} × ${p.qty}</div><div class="text-[10px] text-slate-500">${new Date(p.purchasedAt).toLocaleString()}</div><div class="text-[9px] font-black mt-1" style="color:${nft.accent}">${nftTier(nft)} • ${nft.label} effect</div></div>
+                  <div class="flex flex-col items-end gap-1"><span class="text-amber-300 font-black text-xs">${p.total} pt</span><button onclick="activateNft('${p.productId}')" class="px-2.5 py-1 rounded-lg text-[9px] font-black ${active?'bg-emerald-500/20 text-emerald-300':'bg-slate-800 text-slate-300'}">${active?'✓ Faol':'Profilga qo‘yish'}</button></div>
+                </div>
+              `; }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+      return container;
+    }
+
+    window.addProductToCart = function(productId) {
+      const product = DB.getProducts().find(p => p.id === productId);
+      if (!product) return;
+      DB.addToCart(AppState.currentUser.id, productId);
+      showToast(`🛒 ${product.name} korzinkaga qo'shildi!`);
+      renderApp();
+    };
+
+    window.removeCartItem = function(productId) {
+      DB.removeFromCart(AppState.currentUser.id, productId);
+      renderApp();
+    };
+
+    window.checkoutCart = function() {
+      const userId = AppState.currentUser.id;
+      const cart = DB.getCart(userId);
+      const products = DB.getProducts();
+      const detailed = cart.map(i => {
+        const product = products.find(p => p.id === i.productId);
+        return product ? { ...i, product, total: product.price * i.qty } : null;
+      }).filter(Boolean);
+      const total = detailed.reduce((sum, item) => sum + item.total, 0);
+      const balance = DB.getStudentBalance(userId);
+      if (!detailed.length) return;
+      if (total > balance) {
+        showToast("Ball yetarli emas!", "error");
+        return;
+      }
+
+      let lastPurchasedId = '';
+      detailed.forEach(item => {
+        const nft = nftForProduct(item.product);
+        DB.addPurchase({
+          id: 'buy-' + Date.now() + '-' + Math.random().toString(36).slice(2,8),
+          studentId: userId,
+          productId: item.product.id,
+          productName: item.product.name,
+          price: item.product.price,
+          qty: item.qty,
+          total: item.total,
+          status: 'paid',
+          nftEffect: nft?.effect || '',
+          nftIcon: nft?.icon || '✨',
+          nftLabel: nft?.label || 'NFT',
+          purchasedAt: new Date().toISOString()
+        });
+        lastPurchasedId = item.product.id;
+      });
+      DB.clearCart(userId);
+      if (lastPurchasedId) DB.setActiveNft(userId, lastPurchasedId, true);
+      AppState.currentUser = DB.getUserById(userId) || AppState.currentUser;
+      sessionStorage.setItem('edutask_user', JSON.stringify(AppState.currentUser));
+      showToast(`✅ Xarid qilindi! ${total} ball ishlatildi. NFT profilingizga darhol qo'yildi!`);
+      renderApp();
+    };
+
+
+    window.activateNft = function(productId) {
+      const userId = AppState.currentUser.id;
+      const owned = DB.getPurchases().some(p => p.studentId === userId && p.productId === productId && p.status === 'paid');
+      if (!owned) { showToast('Bu NFT sizda yo‘q!', 'error'); return; }
+      DB.setActiveNft(userId, productId, true);
+      AppState.currentUser = DB.getUserById(userId) || AppState.currentUser;
+      sessionStorage.setItem('edutask_user', JSON.stringify(AppState.currentUser));
+      showToast('✨ NFT faol qilindi! Profilingiz darhol o‘zgardi.', 'success');
+      renderApp();
+    };
+
+    window.toggleNftAvatar = function() {
+      const userId = AppState.currentUser.id;
+      const user = DB.getUserById(userId) || AppState.currentUser;
+      if (!getActiveNft(user)) { showToast('Avval Shopdan NFT oling!', 'error'); return; }
+      DB.setActiveNft(userId, user.activeProductId, user.nftAvatarEnabled === false);
+      AppState.currentUser = DB.getUserById(userId) || AppState.currentUser;
+      sessionStorage.setItem('edutask_user', JSON.stringify(AppState.currentUser));
+      renderApp();
+    };
+
+    window.contactTelegram = function() {
+      window.open('https://t.me/Ahmadov_2012', '_blank', 'noopener,noreferrer');
+    };
+
+    window.openAddProductModal = function() {
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-md p-5 rounded-2xl border border-brand-border space-y-4 max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="font-black text-white">🛒 Shopga yangi narsa qo'shish</h3>
+              <button onclick="closeModal()" class="w-9 h-9 rounded-xl bg-slate-800 text-slate-300">×</button>
+            </div>
+            <form id="add-product-form" class="space-y-3">
+              <input id="prd-name" type="text" required placeholder="Narsa nomi" class="w-full glass-input px-3 py-2.5 rounded-xl text-xs text-white">
+              <textarea id="prd-desc" placeholder="Narsa haqida" class="w-full glass-input px-3 py-2.5 rounded-xl text-xs text-white"></textarea>
+              <input id="prd-price" type="number" min="1" max="100000" required placeholder="Nechta ball?" class="w-full glass-input px-3 py-2.5 rounded-xl text-xs text-white">
+              <label class="block text-xs font-bold text-slate-300">Mahsulot rasmi (ixtiyoriy)
+                <input id="prd-image" type="file" accept="image/*" class="w-full mt-1 text-xs text-slate-400">
+              </label>
+              <div class="flex gap-2 pt-2">
+                <button type="submit" class="flex-1 py-2.5 rounded-xl bg-brand-600 text-white text-xs font-black">Qo'shish</button>
+                <button type="button" onclick="closeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold">Bekor qilish</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+      document.getElementById('add-product-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const file = document.getElementById('prd-image').files[0];
+        const image = file ? await fileToDataURL(file) : '';
+        const price = Number(document.getElementById('prd-price').value);
+        if (!Number.isFinite(price) || price < 1) {
+          showToast("Ball narxini to'g'ri kiriting!", "error");
+          return;
+        }
+        DB.addProduct({
+          id: 'prd-' + Date.now(),
+          name: document.getElementById('prd-name').value.trim(),
+          description: document.getElementById('prd-desc').value.trim(),
+          price,
+          image
+        });
+        closeModal();
+        showToast("Shopga yangi narsa qo'shildi!");
+        renderApp();
+      });
+    };
+
+    window.deleteProduct = function(id) {
+      if (!confirm("Bu mahsulotni shopdan olib tashlaysizmi?")) return;
+      DB.deleteProduct(id);
+      showToast("Mahsulot o'chirildi!");
+      renderApp();
+    };
+
+    // Fon almashtirish modal oynasi va 10 ta fon rasmlari
+    window.openBgModal = function() {
+      const bgImages = [
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=1920&q=80',
+        'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1920&q=80'
+      ];
+
+      const mc = document.getElementById('modal-container');
+      mc.innerHTML = `
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 fade-in">
+          <div class="glass-card w-full max-w-lg p-5 rounded-2xl border border-brand-border space-y-4">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-sm text-white">🎨 10 xil Fon Rasmini Tanlang</h3>
+              <button onclick="setCustomBg('')" class="text-xs text-rose-400 hover:underline">Fonsiz (Standart)</button>
+            </div>
+            <div class="grid grid-cols-5 gap-2 max-h-60 overflow-y-auto p-1">
+              ${bgImages.map((url, idx) => `
+                <div onclick="setCustomBg('${url}')" class="h-14 rounded-lg cursor-pointer bg-cover bg-center border-2 border-transparent hover:border-brand-accent transition transform hover:scale-105 shadow" style="background-image: url('${url}')"></div>
+              `).join('')}
+            </div>
+            <div class="flex justify-end pt-2">
+              <button type="button" onclick="closeModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold">Yopish</button>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    window.setCustomBg = function(url) {
+      DB.setCustomBg(url);
+      applyBackground();
+      closeModal();
+      showToast("Fon rasmi o'zgartirildi!");
+    };
+
+    renderApp();
+  </script>
+</body>
+</html>
